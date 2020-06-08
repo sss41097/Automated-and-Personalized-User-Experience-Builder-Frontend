@@ -4,11 +4,11 @@
       "type": "button",
       "id": "3032013",
       "css": [
-        { "height": "200px"},
+        { "height": "200px" },
         { "width": "300px" },
         { "color": "20px" },
         { "top": "20px" },
-        { "backgroundColor": "" },
+        { "backgroundColor": "" }
       ],
       "value": "Click me"
     },
@@ -20,58 +20,8 @@
         { "width": "300px" },
         { "color": "20px" },
         { "left": "30px" }
-        ...
       ],
       "value": "Hi, this is text"
     }
   ]
 }
-
-
-
-
-
-{
-    "buttonIcon": 
-      {
-        "type": "button",
-        "id": "random()",
-        "css": [
-          { "height": "20px" },
-          { "width": "20px" },
-          { "color": "20px" },
-          { "top": "20px" },
-          { "backgroundColor": "purple" }
-        ],
-        "value": "Default value here"
-      },
-      "textIcon": 
-       {
-        "type": "textfield",
-        "id": "random()",
-        "css": [
-          { "height": "10px" },
-          { "width": "10px" },
-          { "color": "white" },
-          { "left": "20px" }
-        ],
-        "value": "Default value here"
-      }
-    
-  }
-
-
-
-
-
-
-
-
-
-
-
-<button id = data.id style = {{height:data.height, width:data.width .....}} onClikc= {}>
-
-data.value
-
-</button>
