@@ -1,3 +1,4 @@
+import "./Login.css";
 import React, { Fragment, useState } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import { Link, Redirect } from "react-router-dom";
@@ -25,59 +26,24 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     height: "100vh",
   },
-  sideBar: {
-    backgroundColor: "#3498db",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  },
-  paper: {
-    minWidth: "450px",
-    [theme.breakpoints.down("xs")]: {
-      minWidth: "320px",
-    },
-  },
+
   title: {
     fontSize: 14,
   },
   pos: {
     marginBottom: 12,
   },
-  dontHaveAnAccount: {
-    color: "grey",
-    "&:hover": {
-      color: "black",
-      textDecoration: "underline",
-    },
-  },
-  forgot: {
-    color: "grey",
-    "&:hover": {
-      color: "black",
-      textDecoration: "underline",
-      cursor: "pointer",
-    },
-  },
+
   emailField: {
     width: "320px",
     [theme.breakpoints.down("xs")]: {
-      width: "180px",
+      width: "200px",
     },
   },
   passwordField: {
     width: "320px",
     [theme.breakpoints.down("xs")]: {
-      width: "180px",
-    },
-  },
-  loginButton: {
-    backgroundColor: "#38b74e",
-    color: "white",
-    width: "350px",
-    borderRadius: "0",
-    textTransform: "none",
-    fontSize: "18px",
-    [theme.breakpoints.down("xs")]: {
-      width: "180px",
+      width: "200px",
     },
   },
 }));
@@ -134,31 +100,34 @@ const Signin = ({
     <Anonymous>
       <Fragment>
         {loading === true ? (
-          <Fragment>
-            <div style={{ height: "250px" }}></div>
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            style={{ minHeight: "100vh" }}
+          >
             <Spinner />
-          </Fragment>
+          </Grid>
         ) : (
           <Fragment>
             <Grid container className={classes.root}>
               <Hidden xsDown>
-                <Grid item sm={3} className={classes.sideBar}>
+                <Grid item sm={3} className="Login-LeftBar">
                   <Grid container spacing={0} direction="column">
                     <Paper elevation={0}>
-                      <div style={{ backgroundColor: "#3498db" }}>
-                        <div style={{ height: "225px" }}></div>
+                      <div className="Login-LeftBar-ContentBox">
+                        <div style={{ height: "30vh" }}></div>
                         <div align="center">
                           <Typography
                             variant="h4"
-                            style={{ color: "white", fontWeight: "bold" }}
+                            style={{ fontWeight: "bold" }}
                           >
                             We know you!
                           </Typography>
                           <br />
-                          <Typography
-                            variant="p"
-                            style={{ color: "#e2e3e4", fontSize: "16px" }}
-                          >
+                          <Typography variant="p" style={{ fontSize: "16px" }}>
                             Simply enter your primary Shift Account to get
                             started.
                           </Typography>
@@ -184,16 +153,16 @@ const Signin = ({
                   direction="column"
                   alignItems="center"
                   justify="center"
-                  style={{ minHeight: "100vh" }}
+                  className="Login-RightBar"
                 >
                   <div>
                     <Grid item xs={9}>
-                      <Paper elevation={10} className={classes.paper}>
+                      <Paper elevation={10} className="Login-Card">
                         <div style={{ height: "30px" }}></div>
                         <div align="center">
                           <Typography
                             variant="h4"
-                            style={{ color: "black", fontWeight: "bold" }}
+                            className="Login-Card-Heading"
                           >
                             LOG IN{" "}
                           </Typography>
@@ -237,7 +206,7 @@ const Signin = ({
                                     <div>
                                       <Typography
                                         variant="p"
-                                        className={classes.dontHaveAnAccount}
+                                        className="Login-Card-Text"
                                         style={{
                                           fontSize: "13px",
                                         }}
@@ -260,7 +229,7 @@ const Signin = ({
                             <Button
                               type="submit"
                               variant="contained"
-                              className={classes.loginButton}
+                              className="Login-Card-LoginButton"
                             >
                               Log In
                             </Button>
@@ -275,7 +244,7 @@ const Signin = ({
                           >
                             <Typography
                               variant="p"
-                              className={classes.dontHaveAnAccount}
+                              className="Login-Card-Text"
                               style={{
                                 fontSize: "18px",
                               }}

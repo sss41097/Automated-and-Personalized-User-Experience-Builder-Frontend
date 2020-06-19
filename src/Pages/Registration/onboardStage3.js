@@ -65,22 +65,18 @@ const RegisterStep = ({ createFirstProject, email }) => {
       <Fragment>
         <Grid container spacing={0} direction="column">
           <Paper elevation={0}>
-            <Grid item>
-              <div style={{ height: "140px" }}></div>
-            </Grid>
-
             <Grid item xs={12}>
               <div align="center">
-                <div style={{ height: "40px" }}></div>
-                <Typography variant="h3" style={{ fontWeight: "bold" }}>
+                <div style={{ height: "27vh" }}></div>
+                <Typography variant="h3" className="Register-Heading">
                   Let's begin
                 </Typography>
-                <div style={{ height: "30px" }}></div>{" "}
+                <div style={{ height: "5vh" }}></div>{" "}
                 <Typography variant="p" style={{ fontSize: "20px" }}>
                   We are on last step! Enter your first project name to begin{" "}
                 </Typography>
                 <br />
-                <div style={{ height: "30px" }}></div>
+                <div style={{ height: "5vh" }}></div>
                 <TextField
                   name="projectName"
                   value={projectName}
@@ -96,7 +92,7 @@ const RegisterStep = ({ createFirstProject, email }) => {
                   id="standard-basic"
                   className={classes.emailField}
                 />{" "}
-                <div style={{ height: "70px" }}></div>
+                <div style={{ height: "10vh" }}></div>
                 <Button
                   variant="outlined"
                   onClick={(e) => {
@@ -105,15 +101,7 @@ const RegisterStep = ({ createFirstProject, email }) => {
                   startIcon={
                     <ChangeHistoryIcon style={{ transform: "rotate(90deg)" }} />
                   }
-                  style={{
-                    width: "230px",
-                    borderRadius: "0",
-                    borderWidth: "medium",
-                    borderColor: "#424342",
-                    textTransform: "none",
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                  }}
+                  className="Register-FinishButton"
                 >
                   Finish
                 </Button>

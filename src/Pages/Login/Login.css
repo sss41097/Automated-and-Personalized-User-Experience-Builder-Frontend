@@ -1,0 +1,32 @@
+.Login-Card-Heading {
+  color: black;
+  font-weight: bold;
+}
+
+.Login-Card-Text {
+  color: grey;
+}
+
+.Login-Card-Text:hover {
+  color: black;
+  text-decoration: underline;
+}
+
+.Login-Card-LoginButton {
+  background-color: #2eb845 !important;
+  color: white !important;
+  width: 350px;
+  border-radius: 0;
+  text-transform: none;
+  font-size: 18px !important;
+}
+
+@media screen and (max-width: 600px) {
+  .Login-Card {
+    min-width: 320px;
+  }
+  .Login-Card-LoginButton {
+    width: 180px;
+  }
+}
+/*# sourceMappingURL=Login.css.map */

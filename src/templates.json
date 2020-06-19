@@ -1,0 +1,83 @@
+{
+  "mapping": {
+    "buttonIcon": {
+      "css": {},
+      "value": "dropped button",
+      "classes": {
+        "default": "Button",
+        "textcolor": "Button-TextColor-White",
+        "color": "Button-Color-Blue",
+        "size": "Button-Size-Normal",
+        "selectedeffect": ""
+      }
+    },
+    "headerIcon": {
+      "css": {},
+      "value": "Enter your heading here !",
+      "classes": {
+        "default": "Header",
+        "textcolor": "Header-TextColor-Black",
+        "size": "Header-Size-H2",
+        "selectedeffect": ""
+      }
+    },
+    "textIcon": {
+      "css": {},
+      "value": "Enter your text here !",
+      "classes": {
+        "default": "Text",
+        "textcolor": "Text-TextColor-Black",
+        "size": "Text-Size-Subtitle1",
+        "selectedeffect": "",
+        "align": "Text-Align-Left"
+      }
+    },
+    "alignmentIcon": {
+      "css": {},
+      "childs": [],
+      "classes": {
+        "default": "Alignment",
+        "direction": "Alignment-Direction-Row",
+        "justifycontent": "Alignment-JustifyContent-Center",
+        "alignitems": "Alignment-AlignItems-Center",
+        "selectedeffect": ""
+      }
+    },
+    "cardIcon": {
+      "css": {},
+      "childs": [],
+      "classes": {
+        "default": "Card",
+        "color": "Card-Color",
+        "selectedeffect": ""
+      }
+    },
+    "imageIcon": {
+      "css": {
+        "height": "100%",
+        "width": "100%",
+        "borderRadius": 0,
+        "borderWidth": 1,
+        "borderColor": "grey",
+        "position": "",
+        "padding": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0,
+        "margin": 0,
+        "marginLeft": 0,
+        "marginRight": 0,
+        "marginTop": 0,
+        "marginBottom": 0
+      },
+      "src": "https://www.talentlms.com/blog/wp-content/uploads/2015/11/successful-employee-onboarding-strategies.jpg",
+      "classes": {
+        "default": "Image",
+        "size": "Image-Size",
+        "objectfit": "Image-ObjectFit-Cover",
+        "selectedeffect": ""
+      }
+    }
+  }
+}

@@ -1,0 +1,385 @@
+.Selected-Effect {
+  outline-style: dashed;
+  outline-color: #e9a11b;
+  outline-offset: 6px;
+  outline-width: 2px;
+}
+
+.Button {
+  margin-top: 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  margin-left: 8px;
+  font-size: 0.875rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: #1976d2;
+  color: #fff;
+  -webkit-box-shadow: -2px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+          box-shadow: -2px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  padding: 6px 26px;
+  -webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border: 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.75;
+  border-radius: 4px;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.Button:hover {
+  background-color: #115293;
+  -webkit-box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  outline-style: dashed;
+  outline-color: #6ba7e4;
+  outline-width: 2px;
+}
+
+.Button:active {
+  -webkit-box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+          box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  -webkit-transform: translateY(2px);
+          transform: translateY(2px);
+}
+
+.Button-Size-Normal {
+  font-size: 0.875rem;
+}
+
+.Button-Size-Large {
+  font-size: 0.9375rem;
+}
+
+.Button-Size-Small {
+  font-size: 0.8125rem;
+}
+
+.Button-Color-Blue {
+  background-color: #1976d2;
+}
+
+.Button-Color-Red {
+  background-color: #f44336;
+}
+
+.Button-Color-Green {
+  background-color: #4caf50;
+}
+
+.Button-Color-Golden {
+  background-color: #f0ad4e;
+}
+
+.Button-Color-Black {
+  background-color: black;
+}
+
+.Button-Color-White {
+  background-color: white;
+}
+
+.Button-TextColor-Black {
+  color: #000000;
+}
+
+.Button-TextColor-White {
+  color: #fff;
+}
+
+.Header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  margin: 3px;
+  min-height: 5px;
+  text-align: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  cursor: auto;
+}
+
+.Header:hover {
+  outline-style: dashed;
+  outline-color: #6ba7e4;
+  outline-width: 2px;
+}
+
+.Header:active {
+  outline-style: dashed;
+  outline-color: #e9a11b;
+  outline-width: 2px;
+}
+
+.Header-Size-H1 {
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 6rem;
+  line-height: 1.167;
+  letter-spacing: -0.01562em;
+}
+
+.Header-Size-H2 {
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 3.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.00833em;
+}
+
+.Header-Size-H3 {
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 3rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
+}
+
+.Header-Size-H4 {
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 2.125rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
+}
+
+.Header-Size-H5 {
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.334;
+  letter-spacing: 0em;
+}
+
+.Header-Size-H6 {
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.00938em;
+}
+
+.Header-TextColor-Black {
+  color: #000000;
+}
+
+.Header-TextColor-White {
+  color: #fff;
+}
+
+.Text {
+  text-align: right;
+  width: 100%;
+  margin: 3px;
+  min-height: 5px;
+  cursor: auto;
+}
+
+.Text:hover {
+  outline-style: dashed;
+  outline-color: #6ba7e4;
+  outline-width: 2px;
+}
+
+.Text-Size-Subtitle1 {
+  font-family: sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  letter-spacing: 0.00938em;
+}
+
+.Text-Size-Subtitle2 {
+  font-family: sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.57;
+  letter-spacing: 0.00714em;
+}
+
+.Text-TextColor-Black {
+  color: #000000;
+}
+
+.Text-TextColor-White {
+  color: #fff;
+}
+
+.Text-Align-Left {
+  text-align: left;
+}
+
+.Text-Align-Right {
+  text-align: right;
+}
+
+.Text-Align-Center {
+  text-align: center;
+}
+
+.Alignment {
+  min-height: 5px;
+  min-width: 1px;
+  max-height: 100%;
+  max-width: 100%;
+  width: 100%;
+  padding: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.Alignment:hover {
+  outline-style: dashed;
+  outline-color: #6ba7e4;
+  outline-offset: 5px;
+}
+
+.Alignment-Direction-Row {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.Alignment-Direction-Column {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.Alignment-JustifyContent-SpaceBetween {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.Alignment-JustifyContent-Center {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.Alignment-JustifyContent-SpaceAround {
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.Alignment-JustifyContent-FlexStart {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.Alignment-JustifyContent-FlexEnd {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.Alignment-AlignItems-Center {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Alignment-AlignItems-Stretch {
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+}
+
+.Alignment-AlignItems-FlexStart {
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.Alignment-AlignItems-FlexEnd {
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.Alignment-AlignItems-SpaceBetween {
+  -webkit-box-align: space-between;
+      -ms-flex-align: space-between;
+          align-items: space-between;
+}
+
+.Image {
+  margin-top: 0px;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+}
+
+.Image:hover {
+  outline-style: dashed;
+  outline-color: #6ba7e4;
+  outline-width: 2px;
+}
+
+.Image-Size {
+  width: 100%;
+  min-height: 5px;
+}
+
+.Image-ObjectFit-Fill {
+  -o-object-fit: fill;
+     object-fit: fill;
+}
+
+.Image-ObjectFit-Contain {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.Image-ObjectFit-Cover {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.Image-ObjectFit-ScaleDown {
+  -o-object-fit: scale-down;
+     object-fit: scale-down;
+}
+
+.Card {
+  min-height: 60px;
+  min-width: 20px;
+  max-height: 100%;
+  max-width: 100%;
+  padding: 0px;
+  border-radius: 8px;
+  margin: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Card:hover {
+  outline-style: dashed;
+  outline-color: #6ba7e4;
+  outline-width: 2px;
+}
+
+.Card-Color {
+  background-color: white;
+}
+/*# sourceMappingURL=StudioEditor.css.map */

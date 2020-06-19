@@ -3,7 +3,7 @@ const appRoutes = {
   loginPage: "/login",
   registerPage: "/register",
   forgetPasswordPage: "forget-password",
-  studioEditorPage: "/studio-editor",
+  studioEditorPage: "/studio-editor/:id/:id",
   studioProjectPage: "/studio-project",
   studioComponentsPage: "studio-components",
   teamManagementPage: "/team-management",

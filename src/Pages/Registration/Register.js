@@ -17,6 +17,7 @@ import { sendVerifyEmail } from "../../actions/auth";
 import { createFirstProject } from "../../actions/auth";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Anonymous from "../../Layouts/Anonymous/Anonymous";
+import "./Register.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -103,16 +104,11 @@ const Register = ({
                   timeout={2500}
                   classNames="fade"
                 >
-                  <Grid item xs={0} sm={3} className={classes.sideBar}>
+                  <Grid item xs={0} sm={3} className="Register-LeftBar">
                     <Grid container spacing={0} direction="column">
                       <Paper elevation={0}>
                         <Grid item xs={12}>
-                          <div
-                            style={{
-                              backgroundColor: "#3498db",
-                              paddingLeft: "30px",
-                            }}
-                          >
+                          <div className="Register-LeftBar-ContentBox">
                             <div style={{ height: "10vh" }}></div>
                             <FiberManualRecordIcon
                               className={classes.iconFilled}
@@ -166,7 +162,7 @@ const Register = ({
                 </CSSTransition>
               </Hidden>
 
-              <Grid item xs={12} sm={9}>
+              <Grid item xs={12} sm={9} className="Register-RightBar">
                 <Fragment>
                   {isauthenticated === false ? (
                     <OnboardStage1 register={register} errors={errors} />

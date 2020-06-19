@@ -12,17 +12,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     height: "100vh",
   },
-  resendButton: {
-    backgroundColor: "#38b74e",
-    color: "white",
-    width: "280px",
-    borderRadius: "0",
-    textTransform: "none",
-    fontSize: "18px",
-    [theme.breakpoints.down("xs")]: {
-      width: "180px",
-    },
-  },
 }));
 
 const RegisterStep = ({ register, errors, email, sendVerifyEmail }) => {
@@ -39,13 +28,12 @@ const RegisterStep = ({ register, errors, email, sendVerifyEmail }) => {
         <Grid container spacing={0} direction="column">
           <Paper elevation={0}>
             <Grid item>
-              <div style={{ height: "140px" }}></div>
+              <div style={{ height: "30vh" }}></div>
             </Grid>
 
             <Grid item xs={12}>
               <div align="center">
-                <div style={{ height: "70px" }}></div>
-                <Typography variant="h3" style={{ fontWeight: "bold" }}>
+                <Typography variant="h3" className="Register-Heading">
                   Please Verify your email
                 </Typography>
                 <div style={{ height: "30px" }}></div>{" "}
@@ -53,20 +41,20 @@ const RegisterStep = ({ register, errors, email, sendVerifyEmail }) => {
                   You're almost there! We have sent an email to{" "}
                 </Typography>
                 <br />
-                <div style={{ height: "30px" }}></div>
+                <div style={{ height: "5vh" }}></div>
                 <Typography
                   variant="p"
                   style={{ fontSize: "20px", fontWeight: "bold" }}
                 >
                   {email}
                 </Typography>
-                <div style={{ height: "90px" }}></div>
+                <div style={{ height: "10vh" }}></div>
                 <Button
                   variant="contained"
                   onClick={(e) => {
                     onSubmit(e);
                   }}
-                  className={classes.resendButton}
+                  className="Register-ResendEmailButton"
                 >
                   <Typography
                     variant="p"

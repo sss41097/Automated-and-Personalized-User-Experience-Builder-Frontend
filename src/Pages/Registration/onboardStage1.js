@@ -23,17 +23,7 @@ const useStyles = makeStyles((theme) => ({
   iconRoot: {
     textAlign: "center",
   },
-  tryItFreeButton: {
-    backgroundColor: "#38b74e",
-    color: "white",
-    width: "350px",
-    borderRadius: "0",
-    textTransform: "none",
-    fontSize: "15px",
-    [theme.breakpoints.down("xs")]: {
-      width: "200px",
-    },
-  },
+
   separatorStyle: {
     width: "359px",
     [theme.breakpoints.down("xs")]: {
@@ -42,11 +32,6 @@ const useStyles = makeStyles((theme) => ({
   },
   emailField: {
     width: "390px",
-    [theme.breakpoints.down("xs")]: {
-      width: "220px",
-    },
-  },
-  googleButton: {
     [theme.breakpoints.down("xs")]: {
       width: "220px",
     },
@@ -97,14 +82,13 @@ const RegisterStep = ({ register, errors }) => {
       if (res.msg) {
         alert.success(res.msg);
       } else {
-        res.errors.forEach((error) => alert.error(error.message));
       }
     }
   };
 
   return (
     <CSSTransition in={true} appear={true} timeout={2500} classNames="fade">
-      <Fragment>
+      <div>
         <ToastContainer
           style={{ fontWeight: "bold", fontColor: "black" }}
           position="top-center"
@@ -119,13 +103,13 @@ const RegisterStep = ({ register, errors }) => {
         />
         <Grid container spacing={0} direction="column">
           <Paper elevation={0}>
-            <Grid item>
+            <Grid item className="Register-RightBar">
               <div style={{ height: "15vh" }}></div>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} className="Register-RightBar">
               <div align="center">
-                <Typography variant="h4" style={{ fontWeight: "bold" }}>
+                <Typography variant="h4" className="Register-Heading">
                   Try SpellShow free
                 </Typography>
                 <br />
@@ -135,8 +119,8 @@ const RegisterStep = ({ register, errors }) => {
               </div>
             </Grid>
 
-            <Grid item xs={12}>
-              <div style={{ height: "70px" }}></div>
+            <Grid item xs={12} className="Register-RightBar">
+              <div style={{ height: "6vh" }}></div>
               <div align="center">
                 <form onSubmit={(e) => onSubmit(e)}>
                   <TextField
@@ -148,7 +132,7 @@ const RegisterStep = ({ register, errors }) => {
                     onChange={(e) => onChange(e)}
                     className={classes.emailField}
                   />
-                  <div style={{ height: "30px" }}></div>
+                  <div style={{ height: "5vh" }}></div>
 
                   <TextField
                     id="standard-basic"
@@ -161,7 +145,7 @@ const RegisterStep = ({ register, errors }) => {
                     className={classes.emailField}
                   />
 
-                  <div style={{ height: "30px" }}></div>
+                  <div style={{ height: "5vh" }}></div>
 
                   <TextField
                     id="standard-basic"
@@ -174,26 +158,23 @@ const RegisterStep = ({ register, errors }) => {
                     className={classes.emailField}
                   />
 
-                  <div style={{ height: "40px" }}></div>
+                  <div style={{ height: "6vh" }}></div>
 
                   <Button
                     type="submit"
                     variant="contained"
-                    className={classes.tryItFreeButton}
+                    className="Register-RegistrationButton"
                   >
                     Try It Free
                   </Button>
                 </form>
-                <div style={{ height: "45px" }}></div>
-                <div
-                  className="separator"
-                  style={{ color: "grey", width: "190px" }}
-                >
-                  {" "}
-                  or{" "}
-                </div>
-                <div style={{ height: "50px" }}></div>
-                <Button variant="contained" className={classes.googleButton}>
+                <div style={{ height: "7vh" }}></div>
+
+                <div className="separator"> or </div>
+
+                <div style={{ height: "7vh" }}></div>
+
+                <Button variant="contained" className="Register-GoogleButton">
                   <Icon classes={{ root: classes.iconRoot }}>
                     <img
                       className={classes.imageIcon}
@@ -207,7 +188,7 @@ const RegisterStep = ({ register, errors }) => {
             </Grid>
           </Paper>
         </Grid>
-      </Fragment>
+      </div>
     </CSSTransition>
   );
 };

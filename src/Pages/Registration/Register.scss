@@ -1,0 +1,79 @@
+.Register {
+  &-Heading {
+    font-weight: bold !important;
+  }
+  &-Text {
+    color: grey;
+    &:hover {
+      color: black;
+      text-decoration: underline;
+    }
+  }
+
+  &-RegistrationButton {
+    background-color: #38b74e !important;
+    color: white !important;
+    width: 350px !important;
+    border-radius: 0 !important;
+    text-transform: none !important;
+    font-size: 15px !important;
+  }
+
+  &-GoogleButton {
+    width: 300px !important;
+  }
+
+  &-ResendEmailButton {
+    background-color: #38b74e !important;
+    color: white !important;
+    width: 280px !important;
+    border-radius: 0 !important;
+    text-transform: none !important;
+    font-size: 18px !important;
+  }
+
+  &-FinishButton {
+    width: 230px !important;
+    border-radius: 0 !important;
+    border-width: medium !important;
+    border-color: #424342 !important;
+    text-transform: none !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+  }
+}
+
+.separator {
+  display: flex;
+  color: black;
+  width: 190px;
+  align-items: center;
+  text-align: center;
+  &::before {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #000;
+    margin-right: 0.25em;
+  }
+  &::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #000;
+    margin-left: 0.25em;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .Register {
+    &-RegistrationButton {
+      width: 200px !important;
+    }
+
+    &-GoogleButton {
+      width: 220px !important;
+    }
+    &-ResendEmailButton {
+      width: 180px !important;
+    }
+  }
+}

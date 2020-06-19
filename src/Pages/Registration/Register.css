@@ -1,0 +1,87 @@
+.Register-Heading {
+  font-weight: bold !important;
+}
+
+.Register-Text {
+  color: grey;
+}
+
+.Register-Text:hover {
+  color: black;
+  text-decoration: underline;
+}
+
+.Register-RegistrationButton {
+  background-color: #38b74e !important;
+  color: white !important;
+  width: 350px !important;
+  border-radius: 0 !important;
+  text-transform: none !important;
+  font-size: 15px !important;
+}
+
+.Register-GoogleButton {
+  width: 300px !important;
+}
+
+.Register-ResendEmailButton {
+  background-color: #38b74e !important;
+  color: white !important;
+  width: 280px !important;
+  border-radius: 0 !important;
+  text-transform: none !important;
+  font-size: 18px !important;
+}
+
+.Register-FinishButton {
+  width: 230px !important;
+  border-radius: 0 !important;
+  border-width: medium !important;
+  border-color: #424342 !important;
+  text-transform: none !important;
+  font-size: 20px !important;
+  font-weight: bold !important;
+}
+
+.separator {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: black;
+  width: 190px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+.separator::before {
+  content: "";
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  border-bottom: 1px solid #000;
+  margin-right: 0.25em;
+}
+
+.separator::after {
+  content: "";
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  border-bottom: 1px solid #000;
+  margin-left: 0.25em;
+}
+
+@media screen and (max-width: 600px) {
+  .Register-RegistrationButton {
+    width: 200px !important;
+  }
+  .Register-GoogleButton {
+    width: 220px !important;
+  }
+  .Register-ResendEmailButton {
+    width: 180px !important;
+  }
+}
+/*# sourceMappingURL=Register.css.map */

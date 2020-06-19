@@ -1,0 +1,45 @@
+.LeftComponentSideBar {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 50px;
+  background-color: #ecf0f1;
+  overflow-x: hidden;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.LeftComponentSideBar-CloseIcon {
+  margin-top: -50px;
+  margin-left: 270px;
+  cursor: pointer;
+}
+
+.LeftComponentSideBar-Heading {
+  margin-left: 36px;
+  color: grey;
+}
+
+.LeftComponentSideBar-Text {
+  color: #707070;
+  font-family: sans-serif;
+}
+
+.LeftComponentSideBar-Icons-HorizontalSpacing {
+  display: inline-block;
+  margin-left: 36px;
+}
+
+.LeftComponentSideBar-Icons-VerticalSpacing {
+  height: 25px;
+}
+
+@media screen and (max-height: 450px) {
+  .LeftComponentSideBar {
+    padding-top: 15px;
+  }
+}
+/*# sourceMappingURL=LeftComponentSidebar.css.map */

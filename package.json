@@ -10,6 +10,7 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "@types/react-transition-group": "^4.4.0",
+    "array-move": "^2.2.2",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "moment": "^2.26.0",
@@ -25,12 +26,15 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "react-sortable-hoc": "^1.11.0",
+    "react-sortablejs": "^2.0.11",
     "react-toastify": "^6.0.5",
     "react-twitter-login": "^1.1.2",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "uuid": "^8.1.0",
+    "write-json-file": "^4.3.0",
     "yarn": "^1.22.4"
   },
   "scripts": {

@@ -13,6 +13,7 @@ import Spinner from "../../utils/spinner/spinner";
 import { CSSTransition } from "react-transition-group";
 import Anonymous from "../../Layouts/Anonymous/Anonymous";
 import appRoutes from "../../utils/routes";
+import "./HomePage.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,10 +34,16 @@ const Landing = ({ isauthenticated, loading }) => {
     <Anonymous>
       <Fragment>
         {loading === true ? (
-          <Fragment>
-            <div style={{ height: "250px" }}></div>
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            style={{ minHeight: "100vh" }}
+          >
             <Spinner />
-          </Fragment>
+          </Grid>
         ) : (
           <CSSTransition
             in={true}
@@ -55,15 +62,15 @@ const Landing = ({ isauthenticated, loading }) => {
                 direction="column"
                 alignItems="center"
                 justify="center"
-                style={{ minHeight: "100vh" }}
+                style={{ height: "100vh" }}
               >
-                <Paper elevation={0}>
+                <div className="Home-ContentBox">
                   <Grid item xs={12}>
                     <div align="center">
                       <Typography variant="h3">Try SpellShow</Typography>
                       <br />
                       <Typography variant="p" style={{ fontSize: "20px" }}>
-                        A cloud solution manage your Web Applciations Tour
+                        A cloud solution manage your Web Applications Tour
                         Guides
                       </Typography>
                     </div>
@@ -81,17 +88,7 @@ const Landing = ({ isauthenticated, loading }) => {
                           textDecoration: "none",
                         }}
                       >
-                        <Button
-                          variant="contained"
-                          style={{
-                            backgroundColor: "#38b74e",
-                            color: "white",
-                            width: "230px",
-                            borderRadius: "0",
-                            textTransform: "none",
-                            fontSize: "20px",
-                          }}
-                        >
+                        <Button variant="contained" className="LoginButton">
                           Log in
                         </Button>
                       </Link>
@@ -113,26 +110,19 @@ const Landing = ({ isauthenticated, loading }) => {
                       >
                         <Button
                           variant="outlined"
+                          className="RegisterButton"
                           startIcon={
                             <ChangeHistoryIcon
                               style={{ transform: "rotate(90deg)" }}
                             />
                           }
-                          style={{
-                            width: "230px",
-                            borderRadius: "0",
-                            borderWidth: "medium",
-                            borderColor: "#424342",
-                            textTransform: "none",
-                            fontSize: "20px",
-                          }}
                         >
                           Get Started
                         </Button>
                       </Link>
                     </div>
                   </Grid>
-                </Paper>
+                </div>
               </Grid>
             </div>
           </CSSTransition>

@@ -1,0 +1,32 @@
+{
+  "data": {
+    "1": {
+      "css": {
+        "height": 40,
+        "width": 180,
+        "color": "#000000",
+        "borderWidth": 0,
+        "position": "absolute",
+        "top": 40,
+        "left": 300
+      },
+      "value": "this is a button",
+      "type": "button",
+      "childComponent": false
+    },
+    "2": {
+      "css": {
+        "height": 50,
+        "width": 210,
+        "color": "#000000",
+        "borderWidth": 2,
+        "position": "absolute",
+        "top": 50,
+        "left": 0
+      },
+      "value": "this is a 2nd button",
+      "type": "button",
+      "childComponent": false
+    }
+  }
+}

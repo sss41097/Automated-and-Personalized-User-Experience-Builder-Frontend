@@ -1,0 +1,42 @@
+.LeftComponentSideBar {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 50px;
+  background-color: #ecf0f1;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+
+  &-CloseIcon {
+    margin-top: -50px;
+    margin-left: 270px;
+    cursor: pointer;
+  }
+
+  &-Heading {
+    margin-left: 36px;
+    color: grey;
+  }
+
+  &-Text {
+    color: #707070;
+    font-family: sans-serif;
+  }
+
+  &-Icons-HorizontalSpacing {
+    display: inline-block;
+    margin-left: 36px;
+  }
+
+  &-Icons-VerticalSpacing {
+    height: 25px;
+  }
+}
+@media screen and (max-height: 450px) {
+  .LeftComponentSideBar {
+    padding-top: 15px;
+  }
+}

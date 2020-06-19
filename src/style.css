@@ -1,34 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Source + Sans + Pro:wght@200;300;400;600;700;900&display=swap");
+:root {
+  --home-contentbox-background-color: white;
+  --home-contentbox-color: black;
+  --login-leftbar-background-color: #3498db;
+  --login-card-background-color: white;
+  --login-rightbar-background-color: white;
+  --login-leftbar-text-color: white;
+  --register-leftbar-background-color: #3498db;
+  --register-rightbar-background-color: white;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+* {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
 body {
   margin: 0;
-  font-family: sans-serif;
+  background-color: white;
 }
 
-.separator {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  text-align: center;
+.Home-ContentBox {
+  background-color: var(--home-contentbox-background-color);
+  color: var(--home-contentbox-color);
 }
 
-.separator::before {
-  content: "";
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  border-bottom: 1px solid #000;
-  margin-right: 0.25em;
+.Login-LeftBar {
+  background-color: var(--login-leftbar-background-color);
+  background-size: cover;
+  background-position: center;
 }
 
-.separator::after {
-  content: "";
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  border-bottom: 1px solid #000;
-  margin-left: 0.25em;
+.Login-LeftBar-ContentBox {
+  background-color: var(--login-leftbar-background-color);
+  color: var(--login-leftbar-text-color);
+}
+
+.Login-RightBar {
+  background-color: var(--login-rightbar-background-color);
+  min-height: 100vh;
+}
+
+.Login-Card {
+  min-width: 450px;
+  background-color: var(--login-card-background-color);
+}
+
+.Register-LeftBar {
+  background-color: var(--register-leftbar-background-color);
+  background-size: cover;
+  background-position: center;
+}
+
+.Register-LeftBar-ContentBox {
+  background-color: var(--register-leftbar-background-color);
+  padding-left: 30px;
+}
+
+.Register-RightBar {
+  background-color: var(--register-rightbar-background-color);
 }
 
 .alert {
@@ -39,36 +69,33 @@ body {
   color: #333;
 }
 
-/* appear - on page load */
 .fade-appear {
   opacity: 0;
   z-index: 1;
 }
 
-.fade-appear.fade-appear-active {
+.fade-appear-active {
   opacity: 1;
   -webkit-transition: opacity 1500ms linear;
   transition: opacity 1500ms linear;
 }
 
-/* enter */
 .fade-enter {
   opacity: 0;
   z-index: 1;
 }
 
-.fade-enter.fade-enter-active {
+.fade-enter-active {
   opacity: 1;
   -webkit-transition: opacity 400ms linear 4000ms;
   transition: opacity 400ms linear 4000ms;
 }
 
-/* exit */
 .fade-exit {
   opacity: 1;
 }
 
-.fade-exit.fade-exit-active {
+.fade-exit-active {
   opacity: 0;
   -webkit-transition: opacity 0ms linear;
   transition: opacity 0ms linear;
@@ -78,103 +105,39 @@ body {
   opacity: 0;
 }
 
-.slide-enter {
+.fade-droppable-area-appear {
   opacity: 0;
-  -webkit-transform: scale(0.97) translateY(5px);
-          transform: scale(0.97) translateY(5px);
   z-index: 1;
 }
 
-.slide-enter.slide-enter-active {
+.fade-droppable-area-appear-active {
   opacity: 1;
-  -webkit-transform: scale(1) translateY(0);
-          transform: scale(1) translateY(0);
-  -webkit-transition: opacity 3000ms linear 1000ms, -webkit-transform 3000ms ease-in-out 1000ms;
-  transition: opacity 3000ms linear 1000ms, -webkit-transform 3000ms ease-in-out 1000ms;
-  transition: opacity 3000ms linear 1000ms, transform 3000ms ease-in-out 1000ms;
-  transition: opacity 3000ms linear 1000ms, transform 3000ms ease-in-out 1000ms, -webkit-transform 3000ms ease-in-out 1000ms;
+  -webkit-transition: opacity 500ms linear;
+  transition: opacity 500ms linear;
 }
 
-/* slide exit */
-.slide-exit {
+.fade-droppable-area-enter {
+  opacity: 0;
+  z-index: 1;
+}
+
+.fade-droppable-area-enter-active {
   opacity: 1;
-  -webkit-transform: scale(1) translateY(0);
-          transform: scale(1) translateY(0);
+  -webkit-transition: opacity 1500ms linear 1500ms;
+  transition: opacity 1500ms linear 1500ms;
 }
 
-.slide-exit.slide-exit-active {
+.fade-droppable-area-exit {
+  opacity: 1;
+}
+
+.fade-droppable-area-exit-active {
   opacity: 0;
-  -webkit-transform: scale(0.97) translateY(5px);
-          transform: scale(0.97) translateY(5px);
-  -webkit-transition: opacity 1500ms linear, -webkit-transform 1500ms ease-out;
-  transition: opacity 1500ms linear, -webkit-transform 1500ms ease-out;
-  transition: opacity 1500ms linear, transform 1500ms ease-out;
-  transition: opacity 1500ms linear, transform 1500ms ease-out, -webkit-transform 1500ms ease-out;
+  -webkit-transition: opacity 500ms linear;
+  transition: opacity 500ms linear;
 }
 
-.slide-exit-done {
+.fade-droppable-area-exit-done {
   opacity: 0;
-}
-
-.leftbartext {
-  color: #707070;
-  font-family: sans-serif;
-}
-
-.sidenav {
-  height: 100%;
-  width: 250px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 50px;
-  background-color: #ecf0f1;
-  overflow-x: hidden;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-  padding-top: 60px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {
-    padding-top: 15px;
-  }
-}
-
-.siderightnav {
-  height: 100%;
-  width: 250px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  right: 0px;
-  background-color: #ecf0f1;
-  overflow-x: hidden;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-  padding-top: 60px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {
-    padding-top: 15px;
-  }
-}
-
-.fixed-sidebar-icons {
-  width: 40px;
-  height: 40px;
-  margin-left: 5px;
-  margin-top: 30px;
-  cursor: pointer;
-}
-
-.fixed-sidebar-icons:active {
-  -webkit-transform: scale(0.8);
-          transform: scale(0.8);
-  /* Scaling button to 0.98 to its original size */
-  -webkit-box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-          box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
-  /* Lowering the shadow */
 }
 /*# sourceMappingURL=style.css.map */
