@@ -20,6 +20,9 @@ import { socialLogin } from "../../actions/auth";
 import appRoutes from "../../utils/routes";
 import Spinner from "../../utils/spinner/spinner";
 import Anonymous from "../../Layouts/Anonymous/Anonymous";
+import LoadingOverlay from "react-loading-overlay";
+import { notification } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,6 +66,7 @@ const Signin = ({
     email: "",
     password: "",
   });
+  const [queryLoading, setQueryLoading] = useState(false);
 
   const { email, password } = formData;
 
@@ -73,26 +77,39 @@ const Signin = ({
     });
   };
 
+  const openNotification = (msg) => {
+    notification.open({
+      message: msg,
+      placement: "topRight",
+      duration: 2,
+      icon: <ExclamationCircleOutlined style={{ color: "blue" }} />,
+    });
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password === "") {
-      alert.error("Both Fields are required.");
+      openNotification("PASSWORD CANNOT BE EMPTY");
     } else {
+      setQueryLoading(true);
+
       const res = await login(email, password);
-      if (res.msg) {
-        alert.success(res.msg);
+      console.log(res);
+      if (!res.error) {
+        openNotification("LOGIN SUCCESSFUL");
       } else {
-        res.errors.forEach((error) => alert.error(error.message));
+        openNotification(res.error);
       }
+      setQueryLoading(false);
     }
   };
 
   if (loading === false) {
     if (isauthenticated === true && isFirstProjectCreated === false) {
-      return <Redirect to="/onboard" />;
+      return <Redirect to={appRoutes.registerPage} />;
     }
     if (isauthenticated) {
-      return <Redirect to="/dashboard" />;
+      return <Redirect to={appRoutes.studioProjectsPage} />;
     }
   }
 
@@ -111,156 +128,161 @@ const Signin = ({
             <Spinner />
           </Grid>
         ) : (
-          <Fragment>
-            <Grid container className={classes.root}>
-              <Hidden xsDown>
-                <Grid item sm={3} className="Login-LeftBar">
-                  <Grid container spacing={0} direction="column">
-                    <Paper elevation={0}>
-                      <div className="Login-LeftBar-ContentBox">
-                        <div style={{ height: "30vh" }}></div>
-                        <div align="center">
-                          <Typography
-                            variant="h4"
-                            style={{ fontWeight: "bold" }}
-                          >
-                            We know you!
-                          </Typography>
-                          <br />
-                          <Typography variant="p" style={{ fontSize: "16px" }}>
-                            Simply enter your primary Shift Account to get
-                            started.
-                          </Typography>
-                          <br />
-                          <img
-                            src={shieldImage}
-                            style={{
-                              width: "120px",
-                              height: "100px",
-                              paddingTop: "130px",
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </Paper>
-                  </Grid>
-                </Grid>
-              </Hidden>
-              <Grid item xs={12} sm={9}>
-                <Grid
-                  container
-                  spacing={0}
-                  direction="column"
-                  alignItems="center"
-                  justify="center"
-                  className="Login-RightBar"
-                >
-                  <div>
-                    <Grid item xs={9}>
-                      <Paper elevation={10} className="Login-Card">
-                        <div style={{ height: "30px" }}></div>
-                        <div align="center">
-                          <Typography
-                            variant="h4"
-                            className="Login-Card-Heading"
-                          >
-                            LOG IN{" "}
-                          </Typography>
-
-                          <div style={{ height: "40px" }}></div>
-
-                          <form onSubmit={(e) => onSubmit(e)}>
-                            <TextField
-                              InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <EmailIcon />
-                                  </InputAdornment>
-                                ),
-                              }}
-                              placeholder="Email"
-                              id="standard-basic"
-                              name="email"
-                              value={email}
-                              onChange={(e) => onChange(e)}
-                              type="email"
-                              className={classes.emailField}
-                            />
-
-                            <div style={{ height: "30px" }}></div>
-
-                            <TextField
-                              InputProps={{
-                                startAdornment: (
-                                  <InputAdornment position="start">
-                                    <LockIcon />
-                                  </InputAdornment>
-                                ),
-                                endAdornment: (
-                                  <Link
-                                    to={appRoutes.forgetPasswordPage}
-                                    style={{
-                                      textDecoration: "none",
-                                    }}
-                                  >
-                                    <div>
-                                      <Typography
-                                        variant="p"
-                                        className="Login-Card-Text"
-                                        style={{
-                                          fontSize: "13px",
-                                        }}
-                                      >
-                                        Forgot?
-                                      </Typography>
-                                    </div>
-                                  </Link>
-                                ),
-                              }}
-                              id="standard-basic"
-                              placeholder="Password"
-                              type="password"
-                              name="password"
-                              value={password}
-                              onChange={(e) => onChange(e)}
-                              className={classes.passwordField}
-                            />
-                            <div style={{ height: "50px" }}></div>
-                            <Button
-                              type="submit"
-                              variant="contained"
-                              className="Login-Card-LoginButton"
+          <LoadingOverlay active={queryLoading} spinner text="">
+            <Fragment>
+              <Grid container className={classes.root}>
+                <Hidden xsDown>
+                  <Grid item sm={3} className="Login-LeftBar">
+                    <Grid container spacing={0} direction="column">
+                      <Paper elevation={0}>
+                        <div className="Login-LeftBar-ContentBox">
+                          <div style={{ height: "30vh" }}></div>
+                          <div align="center">
+                            <Typography
+                              variant="h4"
+                              style={{ fontWeight: "bold", color: "white" }}
                             >
-                              Log In
-                            </Button>
-                          </form>
-
-                          <div style={{ height: "30px" }}></div>
-                          <Link
-                            to={appRoutes.registerPage}
-                            style={{
-                              textDecoration: "none",
-                            }}
-                          >
+                              We know you!
+                            </Typography>
+                            <br />
                             <Typography
                               variant="p"
-                              className="Login-Card-Text"
-                              style={{
-                                fontSize: "18px",
-                              }}
+                              style={{ fontSize: "16px" }}
                             >
-                              Don't have an account ?
+                              Simply enter your primary Shift Account to get
+                              started.
                             </Typography>
-                          </Link>
-                          <div style={{ height: "20px" }}></div>
+                            <br />
+                            <img
+                              src={shieldImage}
+                              style={{
+                                width: "120px",
+                                height: "100px",
+                                paddingTop: "130px",
+                              }}
+                            />
+                          </div>
                         </div>
                       </Paper>
                     </Grid>
-                  </div>
+                  </Grid>
+                </Hidden>
+                <Grid item xs={12} sm={9}>
+                  <Grid
+                    container
+                    spacing={0}
+                    direction="column"
+                    alignItems="center"
+                    justify="center"
+                    className="Login-RightBar"
+                  >
+                    <div>
+                      <Grid item xs={9}>
+                        <Paper elevation={10} className="Login-Card">
+                          <div style={{ height: "30px" }}></div>
+                          <div align="center">
+                            <Typography
+                              variant="h4"
+                              className="Login-Card-Heading"
+                            >
+                              LOG IN{" "}
+                            </Typography>
+
+                            <div style={{ height: "40px" }}></div>
+
+                            <form onSubmit={(e) => onSubmit(e)}>
+                              <TextField
+                                InputProps={{
+                                  startAdornment: (
+                                    <InputAdornment position="start">
+                                      <EmailIcon />
+                                    </InputAdornment>
+                                  ),
+                                }}
+                                placeholder="Email"
+                                id="standard-basic"
+                                name="email"
+                                value={email}
+                                onChange={(e) => onChange(e)}
+                                type="email"
+                                className={classes.emailField}
+                              />
+
+                              <div style={{ height: "30px" }}></div>
+
+                              <TextField
+                                InputProps={{
+                                  startAdornment: (
+                                    <InputAdornment position="start">
+                                      <LockIcon />
+                                    </InputAdornment>
+                                  ),
+                                  endAdornment: (
+                                    <Link
+                                      to={appRoutes.forgetPasswordPage}
+                                      style={{
+                                        textDecoration: "none",
+                                      }}
+                                    >
+                                      <div>
+                                        <Typography
+                                          variant="p"
+                                          className="Login-Card-Text"
+                                          style={{
+                                            fontSize: "13px",
+                                          }}
+                                        >
+                                          Forgot?
+                                        </Typography>
+                                      </div>
+                                    </Link>
+                                  ),
+                                }}
+                                id="standard-basic"
+                                placeholder="Password"
+                                type="password"
+                                name="password"
+                                value={password}
+                                onChange={(e) => onChange(e)}
+                                className={classes.passwordField}
+                              />
+                              <div style={{ height: "50px" }}></div>
+                              <Button
+                                type="submit"
+                                variant="contained"
+                                className="Login-Card-LoginButton"
+                              >
+                                Log In
+                              </Button>
+                            </form>
+
+                            <div style={{ height: "30px" }}></div>
+                            <Link
+                              to={appRoutes.registerPage}
+                              style={{
+                                textDecoration: "none",
+                              }}
+                            >
+                              <Typography
+                                variant="p"
+                                className="Login-Card-Text"
+                                style={{
+                                  fontSize: "18px",
+                                }}
+                              >
+                                Don't have an account ?
+                              </Typography>
+                            </Link>
+                            <div style={{ height: "20px" }}></div>
+                          </div>
+                        </Paper>
+                      </Grid>
+                    </div>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-          </Fragment>
+            </Fragment>
+          </LoadingOverlay>
         )}
       </Fragment>
     </Anonymous>

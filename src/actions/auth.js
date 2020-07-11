@@ -10,11 +10,13 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
+  UNLOAD_GROUP,
+  PROJECT_ERROR,
 } from "./type";
 import setAuthtoken from "././../utils/setAuthToken";
 
 // first project creation(onboardingStep 3)
-export const createFirstProject = (email) => async (dispatch) => {
+export const createFirstProject = (email, projectName) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -25,7 +27,7 @@ export const createFirstProject = (email) => async (dispatch) => {
     let requestBody = JSON.stringify({
       query: `
       mutation {
-        createFirstProject(email:"${email}") {
+        createFirstProject(email:"${email}", name:"${projectName}") {
         token
         userId
         email
@@ -44,12 +46,10 @@ export const createFirstProject = (email) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: res.data.data.createFirstProject,
     });
+    return { data: res.data.data.createFirstProject };
   } catch (err) {
     console.log(err.response);
-    const check = err.response.data.errors;
-    if (check) {
-      check.forEach((error) => dispatch(setAlert(error.message, "danger")));
-    }
+    return { error: err.response.data.errors[0].message };
   }
 };
 
@@ -110,10 +110,15 @@ export const sendVerifyEmail = (email) => async (dispatch) => {
 
     const res = await axios.post("/graphql", requestBody, config);
 
-    dispatch(setAlert("Email verification send", "success"));
+    console.log(
+      "Send verify email return data: ",
+      res.data.data.sendVerifyEmail
+    );
+
+    return { data: res.data.data.sendVerifyEmail };
   } catch (err) {
-    console.log(err);
-    dispatch(setAlert(err, "danger"));
+    console.log(err.response);
+    return { error: err.response.data.errors[0].message };
   }
 };
 
@@ -165,7 +170,6 @@ export const socialLogin = (email, firstname, lastname) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
-  console.log(email);
   try {
     let requestBody = JSON.stringify({
       query: `
@@ -182,24 +186,20 @@ export const socialLogin = (email, firstname, lastname) => async (dispatch) => {
     });
 
     const res = await axios.post("/graphql", requestBody, config);
-    console.log(res);
 
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data.data.loginUserSocial,
     });
 
-    dispatch(setAlert("Social Login successful", "success"));
     dispatch(loadUser());
+
+    console.log("social login return data : ", res.data.data.loginUserSocial);
+
+    return { data: res.data.data.loginUserSocial };
   } catch (err) {
-    console.log(err.response.data.errors);
-    const check = err.response.data.errors;
-    if (check) {
-      check.forEach((error) => dispatch(setAlert(error.message, "danger")));
-    }
-    dispatch({
-      type: REGISTER_FAIL,
-    });
+    console.log(err.response);
+    return { error: err.response.data.errors[0].message };
   }
 };
 
@@ -236,18 +236,12 @@ export const register = ({ email, password }) => async (dispatch) => {
 
     dispatch(loadUser());
 
-    dispatch(setAlert("Registration successful", "success"));
-    return { msg: "Registration successful" };
+    console.log("REGISTER step 1 return data : ", res.data.data.createUser);
+
+    return { data: res.data.data.createUser };
   } catch (err) {
-    console.log(err.response.data.errors);
-    const check = err.response.data.errors;
-    if (check) {
-      check.forEach((error) => dispatch(setAlert(error.message, "danger")));
-    }
-    dispatch({
-      type: REGISTER_FAIL,
-    });
-    return { errors: check };
+    console.log(err.response);
+    return { error: err.response.data.errors[0].message };
   }
 };
 
@@ -274,8 +268,6 @@ export const login = (email, password) => async (dispatch) => {
       `,
     });
     const res = await axios.post("/graphql", requestBody, config);
-    console.log("Login data");
-    console.log(res.data.data.login);
 
     dispatch({
       type: LOGIN_SUCCESS,
@@ -284,22 +276,22 @@ export const login = (email, password) => async (dispatch) => {
 
     dispatch(loadUser());
 
-    dispatch(setAlert("Login successful", "success"));
-    return { msg: "Login Successful" };
+    console.log("Login return data : ", res.data.data.login);
+
+    return { data: res.data.data.login };
   } catch (err) {
     console.log(err.response);
-    const check = err.response.data.errors;
-    if (check) {
-      check.forEach((error) => dispatch(setAlert(error.message, "danger")));
-    }
-    dispatch({
-      type: LOGIN_FAIL,
-    });
-    return { errors: check };
+    return { error: err.response.data.errors[0].message };
   }
 };
 
 //logout
-export const logout = () => (dispatch) => {
+export const logout = () => async (dispatch) => {
+  dispatch({
+    type: PROJECT_ERROR,
+  });
   dispatch({ type: LOGOUT });
+  dispatch({
+    type: UNLOAD_GROUP,
+  });
 };

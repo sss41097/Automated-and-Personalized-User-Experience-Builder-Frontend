@@ -20,7 +20,7 @@ import Home from "./Pages/HomePage/HomePage";
 import Register from "./Pages/Registration/Register";
 import Login from "./Pages/Login/Login";
 import StudioEditor from "./Pages/StudioEditor/StudioEditor";
-import StudioComponents from "./Pages/StudioComponents/StudioComponents";
+import StudioGroup from "./Pages/StudioGroup/StudioGroup";
 import StudioProject from "./Pages/StudioProject/StudioProject";
 import TeamManagement from "./Pages/TeamManagement/TeamManagement";
 import Dashboard from "./Pages/Dashboard/Dashboard";
@@ -53,13 +53,13 @@ const App = () => {
               />
               <Route
                 exact
-                path={appRoutes.studioComponentsPage}
-                component={StudioComponents}
+                path={appRoutes.studioProjectsPage}
+                component={StudioProject}
               />
               <Route
                 exact
-                path={appRoutes.studioProjectPage}
-                component={StudioProject}
+                path={appRoutes.studioGroupsPage}
+                component={StudioGroup}
               />
               <Route
                 exact
@@ -70,11 +70,6 @@ const App = () => {
                 exact
                 path={appRoutes.teamManagementPage}
                 component={TeamManagement}
-              />
-              <Route
-                exact
-                path={appRoutes.dashboardPage}
-                component={Dashboard}
               />
             </Switch>
           </Fragment>

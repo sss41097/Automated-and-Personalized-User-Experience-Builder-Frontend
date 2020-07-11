@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import ChangeHistoryIcon from "@material-ui/icons/ChangeHistory";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { useAlert } from "react-alert";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import EmailIcon from "@material-ui/icons/Email";
 
@@ -35,7 +34,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RegisterStep = ({ createFirstProject, email }) => {
+const RegisterStep = ({
+  createFirstProject,
+  email,
+  openNotification,
+  setQueryLoading,
+}) => {
   const [formData, setFormData] = useState({
     projectName: "",
   });
@@ -50,13 +54,20 @@ const RegisterStep = ({ createFirstProject, email }) => {
   };
 
   const classes = useStyles();
-  const alert = useAlert();
-  const onSubmit = (e) => {
-    if (projectName === "") {
-      alert.error("Project Name can't be empty.");
+  const onSubmit = async (e) => {
+    if (projectName.trim() === "") {
+      openNotification("PROJECT NAME CANNOT BE EMPTY");
     } else {
-      alert.success("Success");
-      createFirstProject(email);
+      setQueryLoading(true);
+
+      const res = await createFirstProject(email, projectName);
+      console.log(res);
+      if (!res.error) {
+        openNotification("FIRST PROJECT CREATED");
+      } else {
+        openNotification(res.error);
+      }
+      setQueryLoading(false);
     }
   };
 
@@ -67,7 +78,7 @@ const RegisterStep = ({ createFirstProject, email }) => {
           <Paper elevation={0}>
             <Grid item xs={12}>
               <div align="center">
-                <div style={{ height: "27vh" }}></div>
+                <div style={{ height: "24vh" }}></div>
                 <Typography variant="h3" className="Register-Heading">
                   Let's begin
                 </Typography>

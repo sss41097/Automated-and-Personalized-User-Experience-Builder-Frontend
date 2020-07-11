@@ -14,13 +14,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RegisterStep = ({ register, errors, email, sendVerifyEmail }) => {
+const RegisterStep = ({
+  register,
+  errors,
+  email,
+  sendVerifyEmail,
+  openNotification,
+  setQueryLoading,
+}) => {
   const classes = useStyles();
   const alert = useAlert();
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    sendVerifyEmail(email);
-    alert.success("Verification Email Sent.");
+    setQueryLoading(true);
+
+    const res = await sendVerifyEmail(email);
+    console.log(res);
+    if (!res.error) {
+      openNotification("VERIFICATION EMAIL RESENT");
+    } else {
+      openNotification(res.error);
+    }
+    setQueryLoading(false);
   };
   return (
     <CSSTransition in={true} appear={true} timeout={4000} classNames="fade">
@@ -28,7 +43,7 @@ const RegisterStep = ({ register, errors, email, sendVerifyEmail }) => {
         <Grid container spacing={0} direction="column">
           <Paper elevation={0}>
             <Grid item>
-              <div style={{ height: "30vh" }}></div>
+              <div style={{ height: "25vh" }}></div>
             </Grid>
 
             <Grid item xs={12}>
@@ -36,7 +51,7 @@ const RegisterStep = ({ register, errors, email, sendVerifyEmail }) => {
                 <Typography variant="h3" className="Register-Heading">
                   Please Verify your email
                 </Typography>
-                <div style={{ height: "30px" }}></div>{" "}
+                <div style={{ height: "5vh" }}></div>{" "}
                 <Typography variant="p" style={{ fontSize: "17px" }}>
                   You're almost there! We have sent an email to{" "}
                 </Typography>

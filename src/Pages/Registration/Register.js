@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -7,7 +7,7 @@ import { Hidden } from "@material-ui/core";
 import OnboardStage1 from "./onboardStage1";
 import OnboardStage2 from "./onboardStage2";
 import OnboardStage3 from "./onboardStage3";
-import { register } from "../../actions/auth";
+import { register, socialLogin } from "../../actions/auth";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import Spinner from "../../utils/spinner/spinner";
@@ -18,6 +18,10 @@ import { createFirstProject } from "../../actions/auth";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Anonymous from "../../Layouts/Anonymous/Anonymous";
 import "./Register.css";
+import LoadingOverlay from "react-loading-overlay";
+import { notification } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
+import appRoutes from "../../utils/routes";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 const Register = ({
   isauthenticated,
   register,
+  socialLogin,
   loading,
   errors,
   email,
@@ -61,6 +66,17 @@ const Register = ({
   createFirstProject,
 }) => {
   const classes = useStyles();
+  const [queryLoading, setQueryLoading] = useState(false);
+
+  const openNotification = (msg) => {
+    notification.open({
+      message: msg,
+      placement: "topRight",
+      duration: 2,
+      icon: <ExclamationCircleOutlined style={{ color: "blue" }} />,
+    });
+  };
+
   var step2 = "#d5dadc";
   var step3 = "#d5dadc";
   var componentNumber = 1;
@@ -71,7 +87,7 @@ const Register = ({
       isEmailVerified === true &&
       isFirstProjectCreated === true
     ) {
-      return <Redirect to="/dashboard" />;
+      return <Redirect to={appRoutes.studioProjectsPage} />;
     }
   }
 
@@ -95,104 +111,131 @@ const Register = ({
             <Spinner />
           </Fragment>
         ) : (
-          <Fragment>
-            <Grid container className={classes.root}>
-              <Hidden xsDown>
-                <CSSTransition
-                  in={true}
-                  appear={true}
-                  timeout={2500}
-                  classNames="fade"
-                >
-                  <Grid item xs={0} sm={3} className="Register-LeftBar">
-                    <Grid container spacing={0} direction="column">
-                      <Paper elevation={0}>
-                        <Grid item xs={12}>
-                          <div className="Register-LeftBar-ContentBox">
-                            <div style={{ height: "10vh" }}></div>
-                            <FiberManualRecordIcon
-                              className={classes.iconFilled}
-                            />
-                            &nbsp;
-                            <Typography
-                              variant="p"
-                              style={{ color: "white", fontSize: "20px" }}
-                            >
-                              Add Work Account
-                            </Typography>
-                            <div style={{ height: "40px" }}></div>
-                            {isauthenticated ? (
+          <LoadingOverlay active={queryLoading} spinner text="">
+            <Fragment>
+              <Grid container className={classes.root}>
+                <Hidden xsDown>
+                  <CSSTransition
+                    in={true}
+                    appear={true}
+                    timeout={2500}
+                    classNames="fade"
+                  >
+                    <Grid item xs={0} sm={3} className="Register-LeftBar">
+                      <Grid container spacing={0} direction="column">
+                        <Paper elevation={0}>
+                          <Grid item xs={12}>
+                            <div className="Register-LeftBar-ContentBox">
+                              <div style={{ height: "10vh" }}></div>
                               <FiberManualRecordIcon
                                 className={classes.iconFilled}
                               />
-                            ) : (
-                              <RadioButtonUncheckedIcon
-                                className={classes.iconHollow}
-                              />
-                            )}
-                            &nbsp;
-                            <Typography
-                              variant="p"
-                              style={{ color: step2, fontSize: "20px" }}
-                            >
-                              Verify your Email
-                            </Typography>
-                            <div style={{ height: "40px" }}></div>
-                            {isEmailVerified ? (
-                              <FiberManualRecordIcon
-                                className={classes.iconFilled}
-                              />
-                            ) : (
-                              <RadioButtonUncheckedIcon
-                                className={classes.iconHollow}
-                              />
-                            )}{" "}
-                            &nbsp;
-                            <Typography
-                              variant="p"
-                              style={{ color: step3, fontSize: "20px" }}
-                            >
-                              Create your first Project
-                            </Typography>
-                          </div>
-                        </Grid>
-                      </Paper>
+                              &nbsp;
+                              <Typography
+                                variant="p"
+                                style={{
+                                  color: "white",
+                                  fontSize: "20px",
+
+                                  marginLeft: "20px",
+                                }}
+                              >
+                                Add Work Account
+                              </Typography>
+                              <div style={{ height: "40px" }}></div>
+                              {isauthenticated ? (
+                                <FiberManualRecordIcon
+                                  className={classes.iconFilled}
+                                />
+                              ) : (
+                                <RadioButtonUncheckedIcon
+                                  className={classes.iconHollow}
+                                />
+                              )}
+                              &nbsp;
+                              <Typography
+                                variant="p"
+                                style={{
+                                  color: step2,
+                                  fontSize: "20px",
+
+                                  marginLeft: "20px",
+                                }}
+                              >
+                                Verify your Email
+                              </Typography>
+                              <div style={{ height: "40px" }}></div>
+                              {isEmailVerified ? (
+                                <FiberManualRecordIcon
+                                  className={classes.iconFilled}
+                                />
+                              ) : (
+                                <RadioButtonUncheckedIcon
+                                  className={classes.iconHollow}
+                                />
+                              )}{" "}
+                              &nbsp;
+                              <Typography
+                                variant="p"
+                                style={{
+                                  color: step3,
+                                  fontSize: "20px",
+
+                                  marginLeft: "20px",
+                                }}
+                              >
+                                Create your first Project
+                              </Typography>
+                            </div>
+                          </Grid>
+                        </Paper>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </CSSTransition>
-              </Hidden>
+                  </CSSTransition>
+                </Hidden>
 
-              <Grid item xs={12} sm={9} className="Register-RightBar">
-                <Fragment>
-                  {isauthenticated === false ? (
-                    <OnboardStage1 register={register} errors={errors} />
-                  ) : (
-                    <Fragment></Fragment>
-                  )}
+                <Grid item xs={12} sm={9} className="Register-RightBar">
+                  <Fragment>
+                    {isauthenticated === false ? (
+                      <OnboardStage1
+                        register={register}
+                        socialLogin={socialLogin}
+                        errors={errors}
+                        openNotification={openNotification}
+                        setQueryLoading={setQueryLoading}
+                      />
+                    ) : (
+                      <Fragment></Fragment>
+                    )}
 
-                  {isauthenticated === true && isEmailVerified === false ? (
-                    <OnboardStage2
-                      email={email}
-                      sendVerifyEmail={sendVerifyEmail}
-                    />
-                  ) : (
-                    <Fragment></Fragment>
-                  )}
-                  {isauthenticated === true &&
-                  isEmailVerified === true &&
-                  isFirstProjectCreated === false ? (
-                    <OnboardStage3
-                      createFirstProject={createFirstProject}
-                      email={email}
-                      createFirstProject={createFirstProject}
-                    />
-                  ) : (
-                    <Fragment></Fragment>
-                  )}
-                </Fragment>
+                    {isauthenticated === true && isEmailVerified === false ? (
+                      <OnboardStage2
+                        email={email}
+                        sendVerifyEmail={sendVerifyEmail}
+                        openNotification={openNotification}
+                        setQueryLoading={setQueryLoading}
+                      />
+                    ) : (
+                      <Fragment></Fragment>
+                    )}
+                    {isauthenticated === true &&
+                    isEmailVerified === true &&
+                    isFirstProjectCreated === false ? (
+                      <OnboardStage3
+                        createFirstProject={createFirstProject}
+                        email={email}
+                        createFirstProject={createFirstProject}
+                        openNotification={openNotification}
+                        setQueryLoading={setQueryLoading}
+                      />
+                    ) : (
+                      <Fragment></Fragment>
+                    )}
+                  </Fragment>
+                </Grid>
               </Grid>
-            </Grid>
-          </Fragment>
+            </Fragment>
+          </LoadingOverlay>
         )}
       </Fragment>
     </Anonymous>
@@ -207,6 +250,9 @@ const mstp = (state) => ({
   errors: state.alert,
 });
 
-export default connect(mstp, { register, sendVerifyEmail, createFirstProject })(
-  Register
-);
+export default connect(mstp, {
+  register,
+  sendVerifyEmail,
+  createFirstProject,
+  socialLogin,
+})(Register);

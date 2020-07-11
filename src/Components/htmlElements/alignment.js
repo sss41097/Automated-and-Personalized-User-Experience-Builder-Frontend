@@ -5,8 +5,8 @@ import ComponentImage from "./image";
 import ComponentAlignment from "./alignment";
 import ComponentHeader from "./header";
 import ComponentText from "./text";
-
-var htmlTemplates = require("../../templates.json");
+import ComponentSlideshow from "./slideshow";
+import ComponentVideo from "./video";
 
 const Alignment = ({
   id,
@@ -19,6 +19,8 @@ const Alignment = ({
   componentDragStart,
   updateData,
   componentDragOver,
+  changeSlideNumber,
+  htmlTemplates,
 }) => {
   const [css, setcss] = useState({
     width: "",
@@ -114,7 +116,6 @@ const Alignment = ({
     e.stopPropagation();
 
     console.log("dropped on alignment");
-    htmlTemplates = require("../../templates.json");
 
     const iconId = parentState.iconId;
     console.log("IconId : ", iconId);
@@ -155,11 +156,11 @@ const Alignment = ({
 
     if (iconId === "buttonIcon") {
       const template = {
-        css: { ...htmlTemplates["mapping"][iconId].css },
-        value: htmlTemplates["mapping"][iconId].value,
-        classes: { ...htmlTemplates["mapping"][iconId].classes },
+        css: { ...htmlTemplates[iconId].css },
+        value: htmlTemplates[iconId].value,
+        classes: { ...htmlTemplates[iconId].classes },
       };
-      console.log("Template:", htmlTemplates["mapping"][iconId]);
+      console.log("Template:", htmlTemplates[iconId]);
       var newId = parentState.count;
       var newData = {};
       newData[newId] = template;
@@ -169,11 +170,11 @@ const Alignment = ({
       console.log(newData);
     } else if (iconId === "imageIcon") {
       const template = {
-        css: { ...htmlTemplates["mapping"][iconId].css },
-        src: htmlTemplates["mapping"][iconId].src,
-        classes: { ...htmlTemplates["mapping"][iconId].classes },
+        css: { ...htmlTemplates[iconId].css },
+        src: htmlTemplates[iconId].src,
+        classes: { ...htmlTemplates[iconId].classes },
       };
-      console.log("Template:", htmlTemplates["mapping"][iconId]);
+      console.log("Template:", htmlTemplates[iconId]);
       var newId = parentState.count;
       var newData = {};
       newData[newId] = template;
@@ -183,11 +184,11 @@ const Alignment = ({
       console.log(newData);
     } else if (iconId === "headerIcon") {
       const template = {
-        css: { ...htmlTemplates["mapping"][iconId].css },
-        value: htmlTemplates["mapping"][iconId].value,
-        classes: { ...htmlTemplates["mapping"][iconId].classes },
+        css: { ...htmlTemplates[iconId].css },
+        value: htmlTemplates[iconId].value,
+        classes: { ...htmlTemplates[iconId].classes },
       };
-      console.log("Template:", htmlTemplates["mapping"][iconId]);
+      console.log("Template:", htmlTemplates[iconId]);
       var newId = parentState.count;
       var newData = {};
       newData[newId] = template;
@@ -197,17 +198,46 @@ const Alignment = ({
       console.log(newData);
     } else if (iconId === "textIcon") {
       const template = {
-        css: { ...htmlTemplates["mapping"][iconId].css },
-        value: htmlTemplates["mapping"][iconId].value,
-        classes: { ...htmlTemplates["mapping"][iconId].classes },
+        css: { ...htmlTemplates[iconId].css },
+        value: htmlTemplates[iconId].value,
+        classes: { ...htmlTemplates[iconId].classes },
       };
-      console.log("Template:", htmlTemplates["mapping"][iconId]);
+      console.log("Template:", htmlTemplates[iconId]);
       var newId = parentState.count;
       var newData = {};
       newData[newId] = template;
       newData[newId].type = "text";
       newData[newId].childComponent = true;
       newData[newId].parentComponentId = id;
+    } else if (iconId === "slideshowIcon") {
+      const template = {
+        css: { ...htmlTemplates[iconId].css },
+        classes: { ...htmlTemplates[iconId].classes },
+        images: [...htmlTemplates[iconId].images],
+        displays: [...htmlTemplates[iconId].displays],
+      };
+      console.log("Template:", htmlTemplates[iconId]);
+      var newId = parentState.count;
+      var newData = {};
+      newData[newId] = template;
+      newData[newId].type = "slideshow";
+      newData[newId].childComponent = true;
+      newData[newId].parentComponentId = id;
+      //console.log("New Data before update : ", newData);
+    } else if (iconId === "videoIcon") {
+      const template = {
+        css: { ...htmlTemplates[iconId].css },
+        src: htmlTemplates[iconId].src,
+        classes: { ...htmlTemplates[iconId].classes },
+      };
+      console.log("Template:", htmlTemplates[iconId]);
+      var newId = parentState.count;
+      var newData = {};
+      newData[newId] = template;
+      newData[newId].type = "video";
+      newData[newId].childComponent = true;
+      newData[newId].parentComponentId = id;
+      //console.log("New Data before update : ", newData);
     } else {
       return;
     }
@@ -256,6 +286,7 @@ const Alignment = ({
                 componentDragStart={componentDragStart}
                 updateIdList={updateIdList}
                 updateData={updateData}
+                htmlTemplates={htmlTemplates}
               />
             );
           } else if (data[key].type === "image") {
@@ -269,6 +300,7 @@ const Alignment = ({
                 componentDragStart={componentDragStart}
                 updateIdList={updateIdList}
                 updateData={updateData}
+                htmlTemplates={htmlTemplates}
               />
             );
           } else if (data[key].type === "header") {
@@ -282,6 +314,7 @@ const Alignment = ({
                 componentDragStart={componentDragStart}
                 updateIdList={updateIdList}
                 updateData={updateData}
+                htmlTemplates={htmlTemplates}
               />
             );
           } else if (data[key].type === "text") {
@@ -295,6 +328,37 @@ const Alignment = ({
                 componentDragStart={componentDragStart}
                 updateIdList={updateIdList}
                 updateData={updateData}
+                htmlTemplates={htmlTemplates}
+              />
+            );
+          } else if (data[key].type === "slideshow") {
+            return (
+              <ComponentSlideshow
+                id={key}
+                parentState={parentState}
+                setActiveId={setActiveId}
+                receivedProperties={data[key]}
+                componentDragOver={componentDragOver}
+                componentDragStart={componentDragStart}
+                updateIdList={updateIdList}
+                updateData={updateData}
+                changeSlideNumber={changeSlideNumber}
+                htmlTemplates={htmlTemplates}
+              />
+            );
+          } else if (data[key].type === "video") {
+            return (
+              <ComponentVideo
+                id={key}
+                parentState={parentState}
+                setActiveId={setActiveId}
+                receivedProperties={data[key]}
+                componentDragOver={componentDragOver}
+                componentDragStart={componentDragStart}
+                updateIdList={updateIdList}
+                updateData={updateData}
+                changeSlideNumber={changeSlideNumber}
+                htmlTemplates={htmlTemplates}
               />
             );
           }

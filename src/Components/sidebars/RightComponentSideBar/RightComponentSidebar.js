@@ -14,6 +14,12 @@ import Button from "@material-ui/core/Button";
 import Slider from "@material-ui/core/Slider";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import DeleteIcon from "@material-ui/icons/Delete";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import AddIcon from "@material-ui/icons/Add";
+import Tooltip from "@material-ui/core/Tooltip";
+import axios from "axios";
 
 const RightComponentSidebar = ({
   closeNav,
@@ -25,10 +31,41 @@ const RightComponentSidebar = ({
   updateDataSrc,
   updateDataClasses,
   deleteComponent,
+  setQueryLoading,
+  addImageToSlideShow,
+  deleteImageFromSlideShow,
+  changeImage,
 }) => {
   const refBackGroundColor = useRef(null);
   const refTextColor = useRef(null);
   const refBorderColor = useRef(null);
+  const imageUploadButtonReference = useRef(null);
+
+  const handleTriggerImageUploadButton = (e) => {
+    imageUploadButtonReference.current.click();
+  };
+
+  const handleImageUpload = async (e, type) => {
+    if (e.target.files[0]) {
+      const formData = new FormData();
+      formData.append("images", e.target.files[0]);
+
+      try {
+        setQueryLoading(true);
+        const res = await axios.put("/imageUpload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        setQueryLoading(false);
+        console.log(res.data.url);
+        if (type === "slideshow") addImageToSlideShow(id, res.data.url);
+        else if (type === "image") changeImage(id, res.data.url);
+      } catch (err) {
+        console.log(err.response);
+      }
+    }
+  };
 
   const borderSlider = (event, newValue) => {
     updateDataCSS("borderWidth", newValue);
@@ -73,7 +110,7 @@ const RightComponentSidebar = ({
   };
 
   const onchangeclassessurface = (type, value) => {
-    if (type === "color") {
+    if (type === "backgroundcolor") {
       updateDataCSS("backgroundColor", "");
     } else if (type === "textcolor") {
       updateDataCSS("color", "");
@@ -204,7 +241,7 @@ const RightComponentSidebar = ({
                   <MenuItem value={"not set"} disabled>
                     Button Size :
                   </MenuItem>{" "}
-                  <MenuItem value={"Button-Size-Small"}>Small</MenuItem>
+                  <MenuItem value={"Button-Size-Small"}>Small </MenuItem>
                   <MenuItem value={"Button-Size-Normal"}>Medium</MenuItem>
                   <MenuItem value={"Button-Size-Large"}>Large</MenuItem>
                 </Select>
@@ -346,7 +383,10 @@ const RightComponentSidebar = ({
                     variant="contained"
                     color="primary"
                     onClick={(e) =>
-                      onchangeclassessurface("color", "Button-Color-Black")
+                      onchangeclassessurface(
+                        "backgroundcolor",
+                        "Button-Color-Black"
+                      )
                     }
                     style={{
                       backgroundColor: "black",
@@ -359,7 +399,10 @@ const RightComponentSidebar = ({
                   <Button
                     variant="contained"
                     onClick={(e) =>
-                      onchangeclassessurface("color", "Button-Color-White")
+                      onchangeclassessurface(
+                        "backgroundcolor",
+                        "Button-Color-White"
+                      )
                     }
                     style={{
                       backgroundColor: "white",
@@ -373,7 +416,10 @@ const RightComponentSidebar = ({
                     variant="contained"
                     color="primary"
                     onClick={(e) =>
-                      onchangeclassessurface("color", "Button-Color-Blue")
+                      onchangeclassessurface(
+                        "backgroundcolor",
+                        "Button-Color-Blue"
+                      )
                     }
                     style={{
                       backgroundColor: "#1976d2",
@@ -386,7 +432,10 @@ const RightComponentSidebar = ({
                   <Button
                     variant="contained"
                     onClick={(e) =>
-                      onchangeclassessurface("color", "Button-Color-Red")
+                      onchangeclassessurface(
+                        "backgroundcolor",
+                        "Button-Color-Red"
+                      )
                     }
                     style={{
                       backgroundColor: "#f44336",
@@ -399,7 +448,10 @@ const RightComponentSidebar = ({
                   <Button
                     variant="contained"
                     onClick={(e) =>
-                      onchangeclassessurface("color", "Button-Color-Green")
+                      onchangeclassessurface(
+                        "backgroundcolor",
+                        "Button-Color-Green"
+                      )
                     }
                     style={{
                       backgroundColor: "#4caf50",
@@ -414,7 +466,10 @@ const RightComponentSidebar = ({
                   <Button
                     variant="contained"
                     onClick={(e) =>
-                      onchangeclassessurface("color", "Button-Color-Golden")
+                      onchangeclassessurface(
+                        "backgroundcolor",
+                        "Button-Color-Golden"
+                      )
                     }
                     style={{
                       backgroundColor: "#f0ad4e",
@@ -485,6 +540,39 @@ const RightComponentSidebar = ({
                     <br />
                   </Fragment>
                 </div>
+                <hr style={{ borderWidth: "2px" }} />
+                <Typography
+                  variant="p"
+                  display="inline"
+                  style={{
+                    marginLeft: "35px",
+                    color: "#394141",
+                    fontSize: "14px",
+                    fontFamily: "sans-serif",
+                  }}
+                >
+                  Functional:
+                </Typography>
+                <Select
+                  style={{
+                    fontSize: "12px",
+                    marginLeft: "28.5px",
+                    marginBottom: "5px",
+                    width: "120px",
+                  }}
+                  name="functionality"
+                  value={data[id].classes.functionality}
+                  onChange={(e) => onchangeclassesdropdown(e)}
+                >
+                  <MenuItem value={"Next-Template-Button"}>
+                    Go To Next Template
+                  </MenuItem>
+                  <MenuItem value={"Previous-Template-Button"}>
+                    Go To Previous Template
+                  </MenuItem>
+                </Select>
+
+                <br />
                 <br />
                 <Button
                   variant="contained"
@@ -1056,41 +1144,7 @@ const RightComponentSidebar = ({
                 </Typography>
                 <br />
                 <br />
-                <div>
-                  <Typography
-                    variant="p"
-                    display="inline"
-                    style={{
-                      marginLeft: "35px",
-                      color: "#394141",
-                      fontSize: "14px",
-                      fontFamily: "sans-serif",
-                    }}
-                  >
-                    Image Src:
-                  </Typography>
-
-                  <TextField
-                    inputProps={{
-                      style: {
-                        width: "110px",
-                        fontSize: 12,
-                        marginTop: "5px",
-                      },
-                    }}
-                    style={{
-                      fontSize: "12px",
-                      marginLeft: "44px",
-                      marginTop: "-10px",
-                      width: "120px",
-                    }}
-                    name="src"
-                    type="text"
-                    onChange={(e) => onchangesrc(e)}
-                    value={data[id].src}
-                  />
-                  <br />
-                </div>
+                <div></div>
                 <Typography
                   variant="p"
                   display="inline"
@@ -1123,6 +1177,24 @@ const RightComponentSidebar = ({
                 </Select>
                 <br />
                 <br />
+                <input
+                  style={{ display: "none" }}
+                  ref={imageUploadButtonReference}
+                  onChange={(e) => handleImageUpload(e, "image")}
+                  type="file"
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="file"
+                  onClick={(e) => handleTriggerImageUploadButton(e)}
+                  style={{ marginLeft: "37px", width: "212px" }}
+                  startIcon={<AddIcon />}
+                >
+                  Change Image
+                </Button>
+                <br />
+                <br />
                 <Button
                   variant="contained"
                   onClick={(e) => deleteComponent(id)}
@@ -1141,6 +1213,120 @@ const RightComponentSidebar = ({
               <Fragment>
                 {" "}
                 <hr style={{ borderWidth: "2px" }} />
+                <br />
+                <br />
+                <Button
+                  variant="contained"
+                  onClick={(e) => deleteComponent(id)}
+                  color="secondary"
+                  style={{ marginLeft: "37px" }}
+                  startIcon={<DeleteIcon />}
+                >
+                  Delete Component
+                </Button>
+              </Fragment>
+            )}
+            {data[id].type !== "slideshow" ? (
+              <Fragment></Fragment>
+            ) : (
+              <Fragment>
+                {" "}
+                <hr style={{ borderWidth: "2px" }} />
+                <List>
+                  {data[id].images.map((image, index) => (
+                    <ListItem
+                      button
+                      style={{
+                        fontWeight: "bold",
+                        borderTopRightRadius: "23px",
+                        borderBottomRightRadius: "23px",
+                        right: "5px",
+                      }}
+                    >
+                      <ListItemText primary={"Image : " + (index + 1)} />
+
+                      <div
+                        className="DeleteIcon"
+                        style={{ zIndex: "111" }}
+                        onClick={(e) => deleteImageFromSlideShow(id, index)}
+                      >
+                        <Tooltip title="Delete Image">
+                          <DeleteIcon></DeleteIcon>
+                        </Tooltip>
+                      </div>
+                    </ListItem>
+                  ))}
+                </List>
+                <br />
+                <br />
+                <input
+                  style={{ display: "none" }}
+                  ref={imageUploadButtonReference}
+                  onChange={(e) => handleImageUpload(e, "slideshow")}
+                  type="file"
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="file"
+                  onClick={(e) => handleTriggerImageUploadButton(e)}
+                  style={{ marginLeft: "37px" }}
+                  startIcon={<AddIcon />}
+                >
+                  Add Image To Slide
+                </Button>
+                <br />
+                <br />
+                <Button
+                  variant="contained"
+                  onClick={(e) => deleteComponent(id)}
+                  color="secondary"
+                  style={{ marginLeft: "37px" }}
+                  startIcon={<DeleteIcon />}
+                >
+                  Delete Component
+                </Button>
+              </Fragment>
+            )}
+
+            {data[id].type !== "video" ? (
+              <Fragment></Fragment>
+            ) : (
+              <Fragment>
+                {" "}
+                <hr style={{ borderWidth: "2px" }} />
+                <br />
+                <Typography
+                  variant="p"
+                  display="inline"
+                  style={{
+                    marginLeft: "35px",
+                    color: "#394141",
+                    fontSize: "14px",
+                    fontFamily: "sans-serif",
+                  }}
+                >
+                  Video Src:
+                </Typography>
+                <TextField
+                  inputProps={{
+                    style: {
+                      width: "110px",
+                      fontSize: 12,
+                      marginTop: "5px",
+                    },
+                  }}
+                  style={{
+                    fontSize: "12px",
+                    marginLeft: "44px",
+                    marginTop: "-10px",
+                    width: "120px",
+                  }}
+                  name="src"
+                  type="text"
+                  onChange={(e) => onchangesrc(e)}
+                  value={data[id].src}
+                />
                 <br />
                 <br />
                 <Button

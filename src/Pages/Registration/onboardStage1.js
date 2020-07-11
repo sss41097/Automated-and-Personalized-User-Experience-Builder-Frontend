@@ -1,16 +1,12 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useRef } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import GoogleIcon from "../../utils/icons/google-icon.svg";
-import { Icon } from "@material-ui/core";
-import { useAlert } from "react-alert";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { GoogleLogin } from "react-google-login";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
   },
   imageIcon: {
-    height: "100%",
+    height: "20px",
+    marginBottom: "90%",
   },
   iconRoot: {
     textAlign: "center",
@@ -38,11 +35,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RegisterStep = ({ register, errors }) => {
-  const alert = useAlert();
+const RegisterStep = ({
+  register,
+  socialLogin,
+  errors,
+  openNotification,
+  setQueryLoading,
+}) => {
   const classes = useStyles();
-
-  var displayErrorid = [];
 
   const [formData, setFormData] = useState({
     email: "",
@@ -59,52 +59,59 @@ const RegisterStep = ({ register, errors }) => {
     });
   };
 
+  const responseGoogle = async (response) => {
+    try {
+      console.log(response.profileObj);
+
+      setQueryLoading(true);
+
+      const res = await socialLogin(
+        response.profileObj.email,
+        response.profileObj.givenName,
+        response.profileObj.familyName
+      );
+      console.log(res);
+      if (!res.error) {
+        openNotification("GOOGLE LOGIN SUCCESSFUL");
+      } else {
+        openNotification(res.error);
+      }
+      setQueryLoading(false);
+    } catch (error) {
+      openNotification(error);
+    }
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    const notify = (msg) =>
-      toast(msg, {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
 
-    if (!email && !password) {
-      alert.error("No field can be empty");
+    if (!email || !password) {
+      openNotification("NO FIELD CAN BE EMPTY");
     } else if (password != passwordConfirm) {
-      alert.error("Password do not match");
+      openNotification("PASSWORD DO NOT MATCH");
     } else if (password.length < 6) {
-      notify("PASSWORD LENGTH MUST BE ATLEAST 6");
+      openNotification("PASSWORD LENGTH MUST BE ATLEAST 6");
     } else {
+      setQueryLoading(true);
+
       const res = await register({ email, password });
-      if (res.msg) {
-        alert.success(res.msg);
+      console.log(res);
+      if (!res.error) {
+        openNotification("PLEASE CONFIRM EMAIL");
       } else {
+        openNotification(res.error);
       }
+      setQueryLoading(false);
     }
   };
 
   return (
     <CSSTransition in={true} appear={true} timeout={2500} classNames="fade">
       <div>
-        <ToastContainer
-          style={{ fontWeight: "bold", fontColor: "black" }}
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
         <Grid container spacing={0} direction="column">
           <Paper elevation={0}>
             <Grid item className="Register-RightBar">
-              <div style={{ height: "15vh" }}></div>
+              <div style={{ height: "11vh" }}></div>
             </Grid>
 
             <Grid item xs={12} className="Register-RightBar">
@@ -174,16 +181,13 @@ const RegisterStep = ({ register, errors }) => {
 
                 <div style={{ height: "7vh" }}></div>
 
-                <Button variant="contained" className="Register-GoogleButton">
-                  <Icon classes={{ root: classes.iconRoot }}>
-                    <img
-                      className={classes.imageIcon}
-                      src={GoogleIcon}
-                      style={{ paddingBottom: "5px" }}
-                    />
-                  </Icon>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quick access with Google
-                </Button>
+                <div>
+                  <GoogleLogin
+                    clientId="951758766667-7vabve5pc6mbtdssv3p6nim5s9adlbum.apps.googleusercontent.com"
+                    buttonText="Login With Google"
+                    onSuccess={responseGoogle}
+                  />
+                </div>
               </div>
             </Grid>
           </Paper>

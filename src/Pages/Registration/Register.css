@@ -43,6 +43,11 @@
   font-weight: bold !important;
 }
 
+.apple {
+  width: 100% !important;
+  color: black;
+}
+
 .separator {
   display: -webkit-box;
   display: -ms-flexbox;

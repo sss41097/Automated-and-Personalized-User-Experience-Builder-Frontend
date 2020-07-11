@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from "react";
 import Draggable from "react-draggable";
 
-const Button = ({
+const Video = ({
   id,
   parentState,
   receivedProperties,
@@ -15,6 +15,8 @@ const Button = ({
     width: "",
     height: "",
     position: "",
+    minWidth: "",
+    minHeight: "",
     borderRadius: "",
     fontSize: "",
     top: "",
@@ -22,35 +24,18 @@ const Button = ({
     transform: "",
     borderColor: "",
     borderWidth: "",
-    fontFamily: "",
-    color: "",
-    backgroundColor: "",
-    margin: "",
-    marginLeft: "",
-    marginRight: "",
-    marginBottom: "",
-    marginTop: "",
-    padding: "",
-    paddingLeft: "",
-    paddingRight: "",
-    paddingBottom: "",
-    paddingTop: "",
   });
+
+  const [src, setsrc] = useState("");
 
   const [classes, setClasses] = useState({
-    size: "",
     default: "",
-    backgroundcolor: "",
-    textcolor: "",
     selectedeffect: "",
-    functionality: "",
   });
 
-  const [value, setvalue] = useState("");
-
   const styles = {
-    height: css.height + "px",
-    width: css.width + "px",
+    height: css.height,
+    width: css.width,
     fontSize: css.fontSize + "px",
     borderRadius: css.borderRadius + "px",
     position: css.position,
@@ -75,14 +60,11 @@ const Button = ({
 
   useEffect(() => {
     setcss(receivedProperties.css);
-    setvalue(receivedProperties.value);
+    setsrc(receivedProperties.src);
     setClasses(receivedProperties.classes);
-  }, [
-    receivedProperties,
-    receivedProperties.css,
-    receivedProperties.value,
-    receivedProperties.classes,
-  ]);
+    document.getElementById(id).load();
+  }, [receivedProperties.css, receivedProperties.src]);
+
   const onClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -96,7 +78,6 @@ const Button = ({
 
   const onDrop = (e) => {
     e.stopPropagation();
-
     if (parentState.componentId === "") {
       return;
     }
@@ -109,6 +90,7 @@ const Button = ({
       var idList = parentState.idList;
       const indexOfDraggedComponentId = idList.indexOf(draggedComponentId);
       const indexofCurrentComponentId = idList.indexOf(id);
+      console.log(draggedComponentId, id);
       idList[indexOfDraggedComponentId] = id;
       idList[indexofCurrentComponentId] = draggedComponentId;
       console.log(idList);
@@ -132,34 +114,24 @@ const Button = ({
       updateData(modifiedData);
     }
   };
-
   return (
-    <button
-      draggable="true"
-      onDragStart={(event) => componentDragStart(event)}
-      onDragOver={(event) => componentDragOver(event)}
-      onDrop={(event) => onDrop(event)}
-      onDragOver={(event) => onDragOver(event)}
-      className={
-        classes.default +
-        " " +
-        classes.size +
-        " " +
-        classes.textcolor +
-        " " +
-        classes.backgroundcolor +
-        " " +
-        classes.functionality +
-        " " +
-        classes.selectedeffect
-      }
-      style={styles}
-      id={id}
-      onClick={(e) => onClick(e)}
-    >
-      {value}
-    </button>
+    <div className={classes.selectedeffect + " " + classes.default}>
+      <video
+        draggable="true"
+        onDragStart={(event) => componentDragStart(event)}
+        onDrop={(event) => onDrop(event)}
+        onDragOver={(event) => onDragOver(event)}
+        id={id}
+        onClick={(e) => onClick(e)}
+        width="100%"
+        height="100%"
+        style={{ objectFit: "fill", borderRadius: "4px" }}
+        controls
+      >
+        <source src={src} type="video/mp4" />
+      </video>
+    </div>
   );
 };
 
-export default Button;
+export default Video;

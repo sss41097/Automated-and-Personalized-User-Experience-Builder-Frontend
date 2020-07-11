@@ -2,11 +2,22 @@ import React from "react";
 import paginationIcon from "../../../utils/icons/paginationIcon.svg";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import "./LeftComponentSidebar.css";
+import { notification } from "antd";
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 class Leftbar extends React.Component {
   constructor(props) {
     super(props);
   }
+
+  openNotification = (msg) => {
+    notification.open({
+      message: msg,
+      placement: "topRight",
+      duration: 2,
+      icon: <ExclamationCircleOutlined style={{ color: "blue" }} />,
+    });
+  };
 
   render() {
     return (
@@ -79,7 +90,12 @@ class Leftbar extends React.Component {
               className="LeftComponentSideBar-Icons-HorizontalSpacing"
               style={{ marginLeft: "30px" }}
             >
-              <img src="https://img.icons8.com/fluent/50/000000/video.png" />
+              <img
+                id="videoIcon"
+                onDragStart={(event) => this.props.iconDragStart(event)}
+                onDragEnd={(event) => this.props.iconDragOver(event)}
+                src="https://img.icons8.com/fluent/50/000000/video.png"
+              />
               <br />
               <span className="LeftComponentSideBar-Text">Video</span>
             </div>
@@ -101,7 +117,12 @@ class Leftbar extends React.Component {
               align="center"
               className="LeftComponentSideBar-Icons-HorizontalSpacing"
             >
-              <img src="https://img.icons8.com/fluent/50/000000/sorting-options.png" />
+              <img
+                src="https://img.icons8.com/fluent/50/000000/sorting-options.png"
+                id="slideshowIcon"
+                onDragStart={(event) => this.props.iconDragStart(event)}
+                onDragEnd={(event) => this.props.iconDragOver(event)}
+              />
               <br />
               <span className="LeftComponentSideBar-Text">Slider</span>
             </div>
@@ -138,16 +159,30 @@ class Leftbar extends React.Component {
               align="center"
               className="LeftComponentSideBar-Icons-HorizontalSpacing"
             >
-              <img src="https://img.icons8.com/office/50/000000/channel-mosaic.png" />{" "}
+              <img
+                src="https://img.icons8.com/fluent/48/000000/comments.png"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  this.props.changeLayout(true, false);
+                  this.openNotification("Template Changed To Tooltip");
+                }}
+              />{" "}
               <br />
-              <span className="LeftComponentSideBar-Text">Position</span>
+              <span className="LeftComponentSideBar-Text">ToolTip</span>
             </div>
 
             <div
               align="center"
               className="LeftComponentSideBar-Icons-HorizontalSpacing"
             >
-              <img src="https://img.icons8.com/office/50/000000/channel-mosaic.png" />{" "}
+              <img
+                src="https://img.icons8.com/office/50/000000/channel-mosaic.png"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  this.props.changeLayout(false, true);
+                  this.openNotification("Template Changed To Overlay");
+                }}
+              />{" "}
               <br />
               <span className="LeftComponentSideBar-Text">Overlay</span>
             </div>

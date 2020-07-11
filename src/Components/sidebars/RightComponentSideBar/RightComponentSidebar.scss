@@ -10,3 +10,14 @@
   transition: 0.5s;
   padding-top: 60px;
 }
+
+.DeleteIcon {
+  color: #ff5e5e;
+  transform: scale(1);
+  &:hover {
+    cursor: pointer;
+    background-color: lightgrey;
+    border-radius: 50%;
+    transform: scale(1.3);
+  }
+}
