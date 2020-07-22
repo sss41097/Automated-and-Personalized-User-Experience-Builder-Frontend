@@ -67,10 +67,6 @@ const RightComponentSidebar = ({
     }
   };
 
-  const borderSlider = (event, newValue) => {
-    updateDataCSS("borderWidth", newValue);
-  };
-
   // ref functions
   const changeTextColor = () => {
     refTextColor.current.click();
@@ -78,25 +74,6 @@ const RightComponentSidebar = ({
 
   const changeBackGroundColor = () => {
     refBackGroundColor.current.click();
-  };
-
-  const changeBorderColor = () => {
-    refBorderColor.current.click();
-  };
-
-  const [propertySwitch, setPropertySwitch] = useState({
-    textProperty: false,
-    borderProperty: false,
-    alignmentProperty: false,
-    marginAndPaddingProperty: false,
-    heightAndWidthProperty: false,
-  });
-
-  const propertySwitchToggle = (e) => {
-    setPropertySwitch({
-      ...propertySwitch,
-      [e.target.name]: e.target.checked,
-    });
   };
 
   const onchangecss = (e) => {

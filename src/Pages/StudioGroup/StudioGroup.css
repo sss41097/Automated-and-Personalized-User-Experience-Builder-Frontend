@@ -1,4 +1,4 @@
-.searchbar {
+.SearchBar {
   margin-bottom: auto;
   margin-top: auto;
   height: 60px;
@@ -10,13 +10,13 @@
   padding: 10px;
 }
 
-.searchbar:hover {
+.SearchBar:hover {
   width: 100%;
   -webkit-transition: width 0.4s linear;
   transition: width 0.4s linear;
 }
 
-.search_input {
+.Search_Input {
   color: black;
   border: 0;
   outline: 0;
@@ -28,7 +28,7 @@
   transition: width 0.4s linear;
 }
 
-.searchbar:hover > .search_input {
+.SearchBar:hover > .Search_Input {
   padding: 0 10px;
   width: 100%;
   caret-color: black;
@@ -36,12 +36,12 @@
   transition: width 0.4s linear;
 }
 
-.searchbar:hover > .search_icon {
+.SearchBar:hover > .Search_Icon {
   background: white;
   color: #47679e;
 }
 
-.search_icon {
+.Search_Icon {
   height: 30px;
   width: 40px;
   float: right;
@@ -59,7 +59,61 @@
   text-decoration: none;
 }
 
-.AddIcon {
+.DeleteIcon {
+  color: #ff5e5e !important;
+  -webkit-transform: scale(1.3) !important;
+          transform: scale(1.3) !important;
+}
+
+.DeleteIcon:hover {
+  cursor: pointer;
+  background-color: lightgrey;
+  border-radius: 50%;
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+}
+
+.CopyGroupIdIcon {
+  color: #3b6cf1 !important;
+  -webkit-transform: scale(1.3) !important;
+          transform: scale(1.3) !important;
+}
+
+.CopyGroupIdIcon:hover {
+  cursor: pointer;
+  background-color: lightgrey;
+  border-radius: 50%;
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+}
+
+.SideBar-TotalGroups-Heading {
+  width: 100%;
+  margin-top: -20px;
+  margin-bottom: 30px;
+  margin-left: 10px;
+}
+
+.SideBar-AllTemplates-Heading {
+  font-weight: bold !important;
+  border-top-right-radius: 23px !important;
+  border-bottom-right-radius: 23px !important;
+  right: 5px !important;
+}
+
+.SideBar-ListItem {
+  font-weight: bold !important;
+  border-top-right-radius: 23px !important;
+  border-bottom-right-radius: 23px !important;
+  right: 5px !important;
+}
+
+.SideBar-GroupList-Heading {
+  font-weight: bold;
+  margin-left: 12px !important;
+}
+
+.SideBar-AddIcon {
   color: blue;
   margin-left: 140px;
   height: 25px;
@@ -73,7 +127,7 @@
   display: inline-block;
 }
 
-.AddIcon:hover {
+.SideBar-AddIcon:hover {
   cursor: pointer;
   -webkit-transform: scale(1.3);
           transform: scale(1.3);
@@ -81,18 +135,50 @@
   border-radius: 50%;
 }
 
-.AddIcon:active {
+.SideBar-AddIcon:active {
   background-color: grey;
   color: white;
 }
 
-.DeleteIcon {
+.CreateTemplate-Button-Wrapper {
+  float: right;
+  margin-bottom: 30px;
+}
+
+.CreateTemplate-Button {
+  font-weight: bold !important;
+}
+
+.Card-ButtonBase {
+  width: 90%;
+  height: 100%;
+}
+
+.Card-Heading {
+  font-weight: bold !important;
+}
+
+.Card-Divider {
+  margin-left: 20% !important;
+  width: 60% !important;
+}
+
+.Card-Icons-Wrapper {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.Card-DeleteIcon {
   color: #ff5e5e;
   -webkit-transform: scale(1.3);
           transform: scale(1.3);
 }
 
-.DeleteIcon:hover {
+.Card-DeleteIcon:hover {
   cursor: pointer;
   background-color: lightgrey;
   border-radius: 50%;
@@ -100,13 +186,13 @@
           transform: scale(1.5);
 }
 
-.PassThroughGroupsIcon {
+.Card-PassThroughGroupsIcon {
   color: blue !important;
   -webkit-transform: scale(1.3);
           transform: scale(1.3);
 }
 
-.PassThroughGroupsIcon:hover {
+.Card-PassThroughGroupsIcon:hover {
   cursor: pointer;
   background-color: lightgrey;
   border-radius: 50%;
@@ -114,7 +200,7 @@
           transform: scale(1.5);
 }
 
-.ChipScroll {
+.Card-ChipScroll {
   width: 85%;
   margin-left: 5%;
   display: -webkit-box;
@@ -127,7 +213,7 @@
   white-space: nowrap;
 }
 
-.ChipScroll::-webkit-scrollbar {
+.Card-ChipScroll::-webkit-scrollbar {
   width: 0 !important;
 }
 /*# sourceMappingURL=StudioGroup.css.map */

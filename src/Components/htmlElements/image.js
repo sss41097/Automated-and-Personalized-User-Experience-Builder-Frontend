@@ -133,7 +133,12 @@ const Image = ({
         onDrop={(event) => onDrop(event)}
         onDragOver={(event) => onDragOver(event)}
         src={src}
-        style={{ width: "100%", height: "100%", borderRadius: "8px" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          borderRadius: "8px",
+          maxHeight: "200px",
+        }}
         className={classes.objectfit}
         id={id}
         onClick={(e) => onClick(e)}

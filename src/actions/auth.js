@@ -1,6 +1,4 @@
 import axios from "axios";
-import { setAlert } from "./alert";
-import { useAlert } from "react-alert";
 
 import {
   REGISTER_SUCCESS,
@@ -41,7 +39,6 @@ export const createFirstProject = (email, projectName) => async (dispatch) => {
 
     const res = await axios.post("/graphql", requestBody, config);
 
-    dispatch(setAlert("First Project Created", "success"));
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data.data.createFirstProject,
@@ -74,15 +71,7 @@ export const resetPasswordEmail = () => async (dispatch) => {
     });
 
     const res = await axios.post("/graphql", requestBody, config);
-
-    dispatch(setAlert("Reset password email send", "success"));
-  } catch (err) {
-    console.log(err.response);
-    const check = err.response.data.errors;
-    if (check) {
-      check.forEach((error) => dispatch(setAlert(error.message, "danger")));
-    }
-  }
+  } catch (err) {}
 };
 
 //send verify email
@@ -210,7 +199,6 @@ export const register = ({ email, password }) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
-  dispatch(setAlert("Registration successful", "success"));
   try {
     let requestBody = JSON.stringify({
       query: `

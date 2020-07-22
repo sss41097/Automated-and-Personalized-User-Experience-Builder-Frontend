@@ -13,7 +13,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import LockIcon from "@material-ui/icons/Lock";
 import EmailIcon from "@material-ui/icons/Email";
 import shieldImage from "../../utils/icons/shield.PNG";
-import { useAlert } from "react-alert";
 import { connect } from "react-redux";
 import { login } from "../../actions/auth";
 import { socialLogin } from "../../actions/auth";
@@ -59,7 +58,6 @@ const Signin = ({
   isEmailVerified,
   isFirstProjectCreated,
 }) => {
-  const alert = useAlert();
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const [formData, setFormData] = useState({
@@ -136,7 +134,7 @@ const Signin = ({
                     <Grid container spacing={0} direction="column">
                       <Paper elevation={0}>
                         <div className="Login-LeftBar-ContentBox">
-                          <div style={{ height: "30vh" }}></div>
+                          <div style={{ height: "25vh" }}></div>
                           <div align="center">
                             <Typography
                               variant="h4"
@@ -153,12 +151,12 @@ const Signin = ({
                               started.
                             </Typography>
                             <br />
+                            <div style={{ height: "20vh" }}></div>
                             <img
                               src={shieldImage}
                               style={{
                                 width: "120px",
                                 height: "100px",
-                                paddingTop: "130px",
                               }}
                             />
                           </div>
@@ -297,4 +295,4 @@ const mstp = (state) => ({
   isFirstProjectCreated: state.auth.isFirstProjectCreated,
 });
 
-export default connect(mstp, { login, socialLogin })(Signin);
+export default connect(mstp, { login })(Signin);

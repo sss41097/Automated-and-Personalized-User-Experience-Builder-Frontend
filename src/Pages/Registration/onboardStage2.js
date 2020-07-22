@@ -4,7 +4,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
-import { useAlert } from "react-alert";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +22,6 @@ const RegisterStep = ({
   setQueryLoading,
 }) => {
   const classes = useStyles();
-  const alert = useAlert();
   const onSubmit = async (e) => {
     e.preventDefault();
     setQueryLoading(true);

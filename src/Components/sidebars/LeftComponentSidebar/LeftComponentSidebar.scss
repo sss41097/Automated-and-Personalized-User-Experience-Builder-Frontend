@@ -6,14 +6,21 @@
   top: 0;
   left: 50px;
   background-color: #ecf0f1;
-  overflow-x: hidden;
+  overflow: hidden;
   transition: 0.5s;
   padding-top: 60px;
 
-  &-CloseIcon {
+  &-CloseIcon-OpenedNav {
     margin-top: -50px;
     margin-left: 270px;
     cursor: pointer;
+  }
+
+  &-CloseIcon-ClosedNav {
+    margin-top: -50px;
+    margin-right: 8px;
+    cursor: pointer;
+    transform: rotate(180deg) !important;
   }
 
   &-Heading {

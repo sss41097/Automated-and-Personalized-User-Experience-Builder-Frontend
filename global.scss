@@ -5,6 +5,25 @@
   flex-direction: column;
 }
 
+.Template-Active-Element {
+  z-index: 2147483647;
+  position: relative;
+}
+
+#arrow,
+#arrow::before {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  z-index: -1;
+}
+
+#arrow::before {
+  content: "";
+  transform: rotate(45deg);
+  background: white;
+}
+
 .Button {
   margin-top: 8px;
   margin-right: 8px;
@@ -252,7 +271,7 @@
 
   &-Size {
     width: 100%;
-    min-height: 5px;
+    height: 200px;
   }
 
   &-ObjectFit-Fill {

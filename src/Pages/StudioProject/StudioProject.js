@@ -13,13 +13,10 @@ import Button from "@material-ui/core/Button";
 import CardContent from "@material-ui/core/CardContent";
 import Tooltip from "@material-ui/core/Tooltip";
 import TextField from "@material-ui/core/TextField";
-import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import AddIcon from "@material-ui/icons/Add";
-import SearchBar from "@opuscapita/react-searchbar";
 import "./StudioProject.css";
-import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
 import Moment from "react-moment";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -33,8 +30,6 @@ import { unloadGroups } from "../../actions/groups";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import LoadingOverlay from "react-loading-overlay";
 import { notification } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
@@ -42,10 +37,11 @@ import { Empty } from "antd";
 import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles({
-  root: {
+  cardRoot: {
     width: "100%",
     minHeight: "170px",
     height: "100%",
+    boxShadow: "0px 0px 5px 5px #e3e6e8",
   },
 });
 
@@ -139,9 +135,11 @@ const StudioProject = ({
   };
 
   useEffect(() => {
-    unloadGroups();
-    getAllProjects();
-    setProjectList(projects.projects);
+    if (auth.isAuthenticated) {
+      unloadGroups();
+      getAllProjects();
+      setProjectList(projects.projects);
+    }
   }, [auth.isAuthenticated, projects.loading]);
 
   if (auth.loading === false) {
@@ -182,31 +180,23 @@ const StudioProject = ({
 
                   <Grid item xs={10} sm={8}>
                     <div style={{ height: "10vh" }}></div>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "left",
-                      }}
-                    >
-                      <div class="searchbar">
-                        <input
-                          class="search_input"
-                          type="text"
-                          onChange={(e) => handleSearchBar(e)}
-                          name="search"
-                          placeholder="Search Projects..."
-                        />
-                      </div>
+
+                    <div class="SearchBar">
+                      <input
+                        class="Search_Input"
+                        type="text"
+                        onChange={(e) => handleSearchBar(e)}
+                        name="search"
+                        placeholder="Search Projects..."
+                      />
                     </div>
                     <div style={{ height: "5vh" }}></div>
-                    <div style={{ float: "right", marginRight: "30px" }}>
+                    <div className="CreateProject-Button-Wrapper">
                       <Button
                         variant="contained"
                         color="primary"
-                        className={classes.button}
                         endIcon={<AddIcon />}
-                        style={{ fontWeight: "bold" }}
+                        className="CreateProject-Button"
                         onClick={(e) => handleOpenAddProjectDialog()}
                       >
                         Create Project
@@ -222,10 +212,7 @@ const StudioProject = ({
                         justify="center"
                         style={{ height: "100%" }}
                       >
-                        <Empty
-                          style={{}}
-                          description={<p>No Projects to Show.</p>}
-                        />
+                        <Empty description={<p>No Projects to Show.</p>} />
                       </Grid>
                     ) : (
                       <Fragment></Fragment>
@@ -237,19 +224,18 @@ const StudioProject = ({
                             <ButtonBase
                               id={project._id}
                               onClick={(e) => handleGoToGroups(e)}
-                              style={{ width: "90%", height: "100%" }}
+                              className="Card-ButtonBase"
                             >
                               <Card
                                 id={project._id}
-                                className={classes.root}
-                                style={{ boxShadow: "0px 0px 5px 5px #e3e6e8" }}
+                                className={classes.cardRoot}
                               >
                                 <CardContent id={project._id}>
                                   <Typography
                                     id={project._id}
                                     variant="h6"
                                     onClick={(e) => handleGoToGroups(e)}
-                                    style={{ fontWeight: "bold" }}
+                                    className="Card-Heading"
                                   >
                                     {project.name}
                                   </Typography>
@@ -258,10 +244,7 @@ const StudioProject = ({
                                     variant="p"
                                     id={project._id}
                                     onClick={(e) => handleGoToGroups(e)}
-                                    style={{
-                                      fontWeight: "bold",
-                                      color: "grey",
-                                    }}
+                                    className="Card-Text"
                                   >
                                     Total Groups : {project.groupCount}
                                   </Typography>
@@ -270,10 +253,7 @@ const StudioProject = ({
                                     id={project._id}
                                     onClick={(e) => handleGoToGroups(e)}
                                     variant="p"
-                                    style={{
-                                      fontWeight: "bold",
-                                      color: "grey",
-                                    }}
+                                    className="Card-Text"
                                   >
                                     Last Modified :{" "}
                                     <Moment fromNow ago>
@@ -284,10 +264,7 @@ const StudioProject = ({
 
                                 <Divider
                                   id={project._id}
-                                  style={{
-                                    marginLeft: "20%",
-                                    width: "60%",
-                                  }}
+                                  className="Card-Divider"
                                 />
 
                                 <CardActions
@@ -296,7 +273,7 @@ const StudioProject = ({
                                 >
                                   <Tooltip title="Delete Group">
                                     <DeleteIcon
-                                      className="DeleteIcon"
+                                      className="Card-DeleteIcon"
                                       id={project._id}
                                       color="secondary"
                                       onClick={(e) =>
@@ -317,6 +294,7 @@ const StudioProject = ({
                   </Grid>
                   <Grid iteme xs={1} sm={2}></Grid>
                 </Grid>
+
                 <Dialog
                   open={openAddProjectDialog}
                   onClose={handleCloseAddProjectDialog}
@@ -407,5 +385,4 @@ export default connect(mstp, {
   createProject,
   deleteProject,
   unloadGroups,
-  unloadProjects,
 })(StudioProject);

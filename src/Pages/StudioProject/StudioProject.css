@@ -1,4 +1,4 @@
-.searchbar {
+.SearchBar {
   margin-bottom: auto;
   margin-top: auto;
   height: 60px;
@@ -10,13 +10,13 @@
   padding: 10px;
 }
 
-.searchbar:hover {
+.SearchBar:hover {
   width: 100%;
   -webkit-transition: width 0.4s linear;
   transition: width 0.4s linear;
 }
 
-.search_input {
+.Search_Input {
   color: black;
   border: 0;
   outline: 0;
@@ -28,7 +28,7 @@
   transition: width 0.4s linear;
 }
 
-.searchbar:hover > .search_input {
+.SearchBar:hover > .Search_Input {
   padding: 0 10px;
   width: 100%;
   caret-color: black;
@@ -36,12 +36,12 @@
   transition: width 0.4s linear;
 }
 
-.searchbar:hover > .search_icon {
+.SearchBar:hover > .Search_Icon {
   background: white;
   color: #47679e;
 }
 
-.search_icon {
+.Search_Icon {
   height: 30px;
   width: 40px;
   float: right;
@@ -59,13 +59,41 @@
   text-decoration: none;
 }
 
-.DeleteIcon {
+.CreateProject-Button-Wrapper {
+  float: right;
+  margin-bottom: 30px;
+}
+
+.CreateProject-Button {
+  font-weight: bold !important;
+}
+
+.Card-ButtonBase {
+  width: 90%;
+  height: 100%;
+}
+
+.Card-Heading {
+  font-weight: bold !important;
+}
+
+.Card-Text {
+  font-weight: bold;
+  color: grey;
+}
+
+.Card-Divider {
+  margin-left: 20% !important;
+  width: 60% !important;
+}
+
+.Card-DeleteIcon {
   color: #ff5e5e;
   -webkit-transform: scale(1.3);
           transform: scale(1.3);
 }
 
-.DeleteIcon:hover {
+.Card-DeleteIcon:hover {
   cursor: pointer;
   background-color: lightgrey;
   border-radius: 50%;

@@ -1,7 +1,4 @@
 import axios from "axios";
-import { setAlert } from "./alert";
-import { useAlert } from "react-alert";
-import removeQuotes from "./removeQuotes";
 import { GET_PROJECTS, DELETE_PROJECT, PROJECT_ERROR } from "./type";
 
 export const getAllProjects = () => async (dispatch) => {

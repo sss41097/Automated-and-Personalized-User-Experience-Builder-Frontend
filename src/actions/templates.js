@@ -1,6 +1,4 @@
 import axios from "axios";
-import { setAlert } from "./alert";
-import { useAlert } from "react-alert";
 import removeQuotes from "./removeQuotes";
 import { GET_PROJECTS, DELETE_PROJECT, GET_GROUPS } from "./type";
 
@@ -52,6 +50,7 @@ export const saveTemplate = (templateInput) => async (dispatch) => {
               idList
               overLay
               toolTip
+              identifier
           }
         }
 
@@ -83,6 +82,7 @@ export const getTemplate = (templateId) => async (dispatch) => {
               idList
               toolTip
               overLay
+              identifier
           }
         }
 

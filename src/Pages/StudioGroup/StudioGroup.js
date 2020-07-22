@@ -52,20 +52,18 @@ import CallSplitIcon from "@material-ui/icons/CallSplit";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Chip from "@material-ui/core/Chip";
+import LinkIcon from "@material-ui/icons/Link";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 var drawerWidth = false;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  cardRoot: {
     width: "100%",
     minHeight: "170px",
     height: "100%",
-  },
-  rootCard: {
-    width: "100%",
-    minHeight: "170px",
-    height: "100%",
+    boxShadow: "0px 0px 5px 5px #e3e6e8",
   },
   rootDrawer: {
     display: "flex",
@@ -195,20 +193,16 @@ const StudioGroups = ({
   const [clickedTemplateId, setClickedTemplateId] = useState("");
   const [draggedTemplateId, setDraggedTemplateId] = useState("");
 
+  //loading overlay
   const [queryLoading, setQueryLoading] = useState(false);
+
+  //sidebar arrow click for open clock
   const [arrowClick, setArrowClick] = useState(false);
 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
-      <div
-        style={{
-          width: "100%",
-          marginTop: "-20px",
-          marginBottom: "30px",
-          marginLeft: "10px",
-        }}
-      >
+      <div className="SideBar-TotalGroups-Heading">
         <br />
         <Typography variant="p" style={{ fontWeight: "bold" }}>
           {groups.groups.length + " Groups"}
@@ -225,12 +219,7 @@ const StudioGroups = ({
           selected={clickedGroupId === "" ? true : false}
           button
           onClick={(e) => handleAllTemplates()}
-          style={{
-            fontWeight: "bold",
-            borderTopRightRadius: "23px",
-            borderBottomRightRadius: "23px",
-            right: "5px",
-          }}
+          className="SideBar-AllTemplates-Heading"
         >
           All Templates
         </ListItem>
@@ -238,14 +227,14 @@ const StudioGroups = ({
 
       <Divider />
       <br />
-      <Typography
-        variant="p"
-        style={{ fontWeight: "bold", marginLeft: "12px" }}
-      >
+      <Typography variant="p" className="SideBar-GroupList-Heading">
         Group List
       </Typography>
       <Tooltip title="Add Group">
-        <div className="AddIcon" onClick={(e) => handleOpenAddGroupDialog()}>
+        <div
+          className="SideBar-AddIcon"
+          onClick={(e) => handleOpenAddGroupDialog()}
+        >
           <AddIcon />
           <br />
         </div>
@@ -264,18 +253,27 @@ const StudioGroups = ({
           <ListItem
             selected={group._id === clickedGroupId ? true : false}
             button
-            style={{
-              fontWeight: "bold",
-              borderTopRightRadius: "23px",
-              borderBottomRightRadius: "23px",
-              right: "5px",
-            }}
             onClick={(e) => handleListItemClick(group._id)}
             key={group._id}
             id={group._id}
+            className="SideBar-ListItem"
           >
             <ListItemText primary={group.name} />
-
+            <CopyToClipboard text={group._id}>
+              <div
+                className="CopyGroupIdIcon"
+                id={group._id}
+                style={{ zIndex: "111" }}
+                onClick={() => {
+                  openNotification("GROUP ID COPIED!");
+                }}
+              >
+                <Tooltip title="Copy Group Id">
+                  <LinkIcon id={group._id}></LinkIcon>
+                </Tooltip>
+              </div>
+            </CopyToClipboard>
+            &nbsp;&nbsp;&nbsp;&nbsp;
             <div
               className="DeleteIcon"
               id={group._id}
@@ -680,22 +678,15 @@ const StudioGroups = ({
 
                   <Grid item xs={10} sm={8}>
                     <div style={{ height: "10vh" }}></div>
-                    <div
-                      style={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "left",
-                      }}
-                    >
-                      <div class="searchbar">
-                        <input
-                          class="search_input"
-                          onChange={(e) => handleSearchBar(e)}
-                          type="text"
-                          name="search"
-                          placeholder="Search Template..."
-                        />
-                      </div>
+
+                    <div class="SearchBar">
+                      <input
+                        class="Search_Input"
+                        onChange={(e) => handleSearchBar(e)}
+                        type="text"
+                        name="search"
+                        placeholder="Search Template..."
+                      />
                     </div>
                     <div style={{ height: "5vh" }}></div>
                     <div style={{ float: "left", display: "inline" }}>
@@ -703,13 +694,13 @@ const StudioGroups = ({
                         {currentProjectDetails.name}
                       </Typography>
                     </div>
-                    <div style={{ float: "right", marginRight: "20px" }}>
+                    <div className="CreateTemplate-Button-Wrapper">
                       <Button
                         variant="contained"
                         color="primary"
                         className={classes.button}
                         endIcon={<AddIcon />}
-                        style={{ fontWeight: "bold" }}
+                        className="CreateTemplate-Button"
                         disabled={clickedGroupId === "" ? true : false}
                         onClick={(e) => handleOpenAddTemplateDialog()}
                       >
@@ -742,7 +733,7 @@ const StudioGroups = ({
                                 onClick={(e) =>
                                   handleGoToTemplate(template.templateId)
                                 }
-                                style={{ width: "90%", height: "100%" }}
+                                className="Card-ButtonBase"
                               >
                                 <Card
                                   onClick={(e) =>
@@ -761,10 +752,7 @@ const StudioGroups = ({
                                     onDrop(event, template.templateId)
                                   }
                                   onDragOver={(event) => onDragOver(event)}
-                                  className={classes.root}
-                                  style={{
-                                    boxShadow: "0px 0px 5px 5px #e3e6e8",
-                                  }}
+                                  className={classes.cardRoot}
                                 >
                                   <CardMedia
                                     onClick={(e) =>
@@ -781,7 +769,7 @@ const StudioGroups = ({
                                   >
                                     <Typography
                                       variant="h6"
-                                      style={{ fontWeight: "bold" }}
+                                      className="Card-Heading"
                                     >
                                       {template.name}
                                     </Typography>
@@ -794,10 +782,7 @@ const StudioGroups = ({
                                         handleGoToTemplate(template.templateId)
                                       }
                                       id={template.templateId}
-                                      style={{
-                                        marginLeft: "20%",
-                                        width: "60%",
-                                      }}
+                                      className="Card-Divider"
                                     />
                                   )}
                                   <CardActions
@@ -807,16 +792,10 @@ const StudioGroups = ({
                                     {clickedGroupId === "" ? (
                                       <Fragment></Fragment>
                                     ) : (
-                                      <div
-                                        style={{
-                                          width: "100%",
-                                          display: "flex",
-                                          justifyContent: "space-around",
-                                        }}
-                                      >
+                                      <div className="Card-Icons-Wrapper">
                                         <Tooltip title="Pass Through Groups">
                                           <CallSplitIcon
-                                            className="PassThroughGroupsIcon"
+                                            className="Card-PassThroughGroupsIcon"
                                             id={template.templateId}
                                             color="secondary"
                                             onClick={(e) =>
@@ -829,7 +808,7 @@ const StudioGroups = ({
                                         </Tooltip>
                                         <Tooltip title="Delete Template">
                                           <DeleteIcon
-                                            className="DeleteIcon"
+                                            className="Card-DeleteIcon"
                                             id={template.templateId}
                                             color="secondary"
                                             onClick={(e) =>
@@ -843,7 +822,7 @@ const StudioGroups = ({
                                       </div>
                                     )}
                                   </CardActions>
-                                  <div className="ChipScroll">
+                                  <div className="Card-ChipScroll">
                                     &nbsp;
                                     {template.groupList &&
                                     template.groupList.length !== 0 ? (

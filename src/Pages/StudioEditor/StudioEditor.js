@@ -15,7 +15,6 @@ import ComponentCard from "../../Components/htmlElements/card";
 import ComponentSlideshow from "../../Components/htmlElements/slideshow";
 import ComponentVideo from "../../Components/htmlElements/video";
 import Default from "../../Layouts/Default/Default";
-import jsonData from "../../data.json";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { getAllComponentTemplates } from "../../actions/componentTemplate";
 import { saveTemplate, getTemplate } from "../../actions/templates";
@@ -36,13 +35,14 @@ class Dashboard extends React.Component {
       leftNavBarWidth: "300px",
       rightNavBarWidth: "300px",
       activeId: "",
-      data: jsonData.data,
+      data: {},
       idList: [],
       notValidComponentId: false,
       dataLoading: true,
       queryLoading: false,
       toolTip: false,
       overLay: false,
+      identifier: "",
     };
     this.myRef = React.createRef();
   }
@@ -201,6 +201,7 @@ class Dashboard extends React.Component {
         toolTip: res.data.toolTip === "true",
         overLay: res.data.overLay === "true",
         dataLoading: false,
+        identifier: res.data.identifier,
       }));
     }
     this.setQueryLoading(false);
@@ -364,7 +365,7 @@ class Dashboard extends React.Component {
   closeLeftNav = (e) => {
     e.preventDefault();
     this.setState({
-      leftNavBarWidth: "0px",
+      leftNavBarWidth: "40px",
     });
   };
 
@@ -518,6 +519,8 @@ class Dashboard extends React.Component {
       newData[id].type = "video";
       newData[id].childComponent = false;
       //console.log("New Data before update : ", newData);
+    } else {
+      return;
     }
 
     if (position === "top") {
@@ -599,10 +602,13 @@ class Dashboard extends React.Component {
               <Fragment>
                 <LeftComponentSidebar
                   closeNav={this.closeLeftNav.bind(this)}
+                  openNav={this.openLeftNav.bind(this)}
                   leftNavBarWidth={this.state.leftNavBarWidth}
                   iconDragStart={this.iconDragStart.bind(this)}
                   iconDragOver={this.iconDragOver.bind(this)}
                   changeLayout={this.changeLayout.bind(this)}
+                  identifier={this.state.identifier}
+                  toolTip={this.state.toolTip}
                 />
                 <Grid container>
                   <Grid item xs={3}>

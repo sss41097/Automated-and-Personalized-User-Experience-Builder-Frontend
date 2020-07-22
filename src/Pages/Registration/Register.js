@@ -247,7 +247,6 @@ const mstp = (state) => ({
   isFirstProjectCreated: state.auth.isFirstProjectCreated,
   loading: state.auth.loading,
   email: state.auth.email,
-  errors: state.alert,
 });
 
 export default connect(mstp, {
